@@ -3,3 +3,6 @@ build
 .env
 .DS_Store
 npm-debug.loggit rm -r --cached .
+.env
+backend/.env
+backend/uploads/
