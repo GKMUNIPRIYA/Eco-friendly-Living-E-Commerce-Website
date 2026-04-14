@@ -1,0 +1,61 @@
+═══════════════════════════════════════════════════════════
+  QUICK FIX: 401 UNAUTHORIZED ERRORS
+═══════════════════════════════════════════════════════════
+
+PROBLEM: "Error loading feedback" + 401 errors in console
+
+ROOT CAUSE: Admin token references deleted user in database
+
+═══════════════════════════════════════════════════════════
+  3-STEP FIX
+═══════════════════════════════════════════════════════════
+
+STEP 1: Restart Backend Server
+────────────────────────────────
+  • Stop running backend (press Ctrl+C)
+  • cd backend
+  • node src/server.js
+  
+  ✅ You'll see: "✅ Initial admin user created"
+
+STEP 2: Clear Browser Cache
+────────────────────────────────
+  • Press F12 (open DevTools)
+  • Go to "Storage" tab
+  • Click "Local Storage"
+  • Select your website
+  • Delete these 2 items:
+    - adminToken
+    - adminUser
+  • Press F5 to refresh
+
+STEP 3: Login Again
+────────────────────────────────
+  • Go to: http://localhost:5173/admin/login
+  • Email: admin123@gmail.com
+  • Password: Admin@123
+  • Click "Sign In"
+
+✅ DONE! Should now work without 401 errors.
+
+═══════════════════════════════════════════════════════════
+  VERIFY IT WORKS
+═══════════════════════════════════════════════════════════
+
+After logging in:
+  ✓ Dashboard loads without errors
+  ✓ Feedback page shows entries with star ratings
+  ✓ Orders page loads
+  ✓ No 401 errors in console (F12)
+
+═══════════════════════════════════════════════════════════
+  IF STILL NOT WORKING
+═══════════════════════════════════════════════════════════
+
+Check these:
+  1. Is backend running? (should see logs on startup)
+  2. Is MongoDB running? (check connection)
+  3. Is .env file present in backend folder?
+  4. Did you clear ALL browser cache? (try Incognito Mode)
+
+Open F12 Console and check for [DEBUG] or [ERROR] messages

@@ -1,0 +1,14 @@
+@import './fonts.css';
+@import './tailwind.css';
+@import './theme.css';
+
+/* Hide scrollbar globally for overflow containers */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Keep scroll behavior but hide bar — Firefox */
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}

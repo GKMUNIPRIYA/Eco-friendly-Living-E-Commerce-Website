@@ -1,0 +1,38 @@
+{
+  "name": "eco-commerce-backend",
+  "version": "1.0.0",
+  "description": "Backend for Eco-Friendly E-Commerce Website",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "create-admin": "node src/scripts/createAdmin.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "eco-commerce",
+    "mongodb",
+    "express"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.1",
+    "express-validator": "^7.3.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^7.0.0",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.20.0",
+    "node-cron": "^3.0.0",
+    "nodemailer": "^6.9.0",
+    "sequelize": "^6.37.8",
+    "validator": "^13.15.26"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
