@@ -6,7 +6,7 @@
  * Base URL: http://localhost:3000/api
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://eco-friendly-living-e-commerce-website-uwgq.onrender.com/api';
 
 // Helper function to get auth token (user/customer)
 function getAuthToken(): string {
@@ -74,7 +74,7 @@ async function fetchAPI<T>(
     // Give clearer message when the browser cannot reach the backend at all
     if (error?.message === 'Failed to fetch' || error instanceof TypeError) {
       throw new Error(
-        'Cannot reach backend API. Make sure the Node server is running on http://localhost:3000 and that it started without errors.'
+        `Cannot reach backend API. Make sure the server at ${API_BASE_URL} is running and accessible.`
       );
     }
 
