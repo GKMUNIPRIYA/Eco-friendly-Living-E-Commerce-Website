@@ -159,7 +159,8 @@ export default function Blog() {
                 onClick={() => {
                   const email = (document.getElementById('newsletter-blog') as HTMLInputElement)?.value;
                   if (email) {
-                    fetch('/api/newsletter/subscribe', {
+                    const API_URL = import.meta.env.VITE_API_URL || 'https://eco-friendly-living-e-commerce-website-uwgq.onrender.com/api';
+                    fetch(`${API_URL}/newsletter/subscribe`, {
                       method: 'POST',
                       headers: { 'Content-Type': 'application/json' },
                       body: JSON.stringify({ email }),

@@ -308,7 +308,8 @@ export default function Home() {
                   }
 
                   try {
-                    const response = await fetch('/api/newsletter/subscribe', {
+                    const API_URL = import.meta.env.VITE_API_URL || 'https://eco-friendly-living-e-commerce-website-uwgq.onrender.com/api';
+                    const response = await fetch(`${API_URL}/newsletter/subscribe`, {
                       method: 'POST',
                       headers: { 'Content-Type': 'application/json' },
                       body: JSON.stringify({ email }),

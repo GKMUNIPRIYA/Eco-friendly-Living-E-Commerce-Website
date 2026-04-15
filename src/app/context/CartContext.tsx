@@ -47,7 +47,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   // fetch active offers on mount
   useEffect(() => {
-    fetch('/api/offers/active')
+    const API_URL = import.meta.env.VITE_API_URL || 'https://eco-friendly-living-e-commerce-website-uwgq.onrender.com/api';
+    fetch(`${API_URL}/offers/active`)
       .then((r) => r.json())
       .then((data) => {
         if (data.success && Array.isArray(data.data)) {

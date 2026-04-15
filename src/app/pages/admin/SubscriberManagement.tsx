@@ -25,7 +25,8 @@ export default function SubscriberManagement() {
   const fetchSubscribers = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/newsletter?page=${currentPage}&limit=${itemsPerPage}`);
+      const API_URL = import.meta.env.VITE_API_URL || 'https://eco-friendly-living-e-commerce-website-uwgq.onrender.com/api';
+      const response = await fetch(`${API_URL}/newsletter?page=${currentPage}&limit=${itemsPerPage}`);
       
       if (!response.ok) {
         const errorData = await response.json();
@@ -49,7 +50,8 @@ export default function SubscriberManagement() {
 
   const handleUnsubscribe = async (email: string) => {
     try {
-      const response = await fetch('/api/newsletter/unsubscribe', {
+      const API_URL = import.meta.env.VITE_API_URL || 'https://eco-friendly-living-e-commerce-website-uwgq.onrender.com/api';
+      const response = await fetch(`${API_URL}/newsletter/unsubscribe`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
