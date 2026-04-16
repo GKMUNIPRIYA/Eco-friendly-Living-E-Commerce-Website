@@ -142,10 +142,6 @@ export default function BlogDetail() {
                     src={heroImage}
                     alt={blog.title}
                     className="w-full h-full object-cover"
-                    onError={(e) => {
-                        (e.target as HTMLImageElement).src =
-                            'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1600';
-                    }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-8 md:p-16">

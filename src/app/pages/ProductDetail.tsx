@@ -213,17 +213,17 @@ export default function ProductDetail() {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex gap-4 mb-6">
+            <div className="flex flex-col sm:flex-row gap-4 mb-6">
               <button
                 onClick={handleAddToCart}
-                className="flex-1 bg-white border-2 border-[#6B8E23] text-[#6B8E23] px-6 py-3 rounded-full font-semibold hover:bg-[#6B8E23] hover:text-white transition flex items-center justify-center gap-2"
+                className="flex-1 bg-white border-2 border-[#6B8E23] text-[#6B8E23] px-6 py-4 rounded-full font-bold hover:bg-[#6B8E23] hover:text-white transition flex items-center justify-center gap-2 active:scale-95"
               >
                 <ShoppingCart className="w-5 h-5" />
                 Add to Cart
               </button>
               <button
                 onClick={handleBuyNow}
-                className="flex-1 bg-[#6B8E23] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#5B6F1E] transition"
+                className="flex-1 bg-[#6B8E23] text-white px-6 py-4 rounded-full font-bold hover:bg-[#5B6F1E] transition active:scale-95 shadow-lg shadow-green-900/20"
               >
                 Buy Now
               </button>
@@ -312,7 +312,6 @@ export default function ProductDetail() {
                       src={relatedProduct.image}
                       alt={relatedProduct.name}
                       className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
-                      onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800'; }}
                     />
                   </div>
                   <div className="p-4">

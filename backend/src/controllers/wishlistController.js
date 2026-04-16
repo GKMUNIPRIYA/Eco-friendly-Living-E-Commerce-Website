@@ -1,5 +1,6 @@
 import Wishlist from '../models/Wishlist.js';
 import Product from '../models/Product.js';
+import mongoose from 'mongoose';
 
 // ─────────────────────────────────────────────
 // USER SIDE — Get my wishlist
@@ -35,10 +36,12 @@ export const addToWishlist = async (req, res) => {
     const { productId, note } = req.body;
     const userId = req.user._id;
 
-    // Verify product exists
-    const product = await Product.findById(productId);
-    if (!product) {
-      return res.status(404).json({ success: false, message: 'Product not found' });
+    // Verify product exists (if it's a valid ID)
+    if (mongoose.Types.ObjectId.isValid(productId)) {
+        const product = await Product.findById(productId);
+        if (!product) {
+          return res.status(404).json({ success: false, message: 'Product not found' });
+        }
     }
 
     let wishlist = await Wishlist.findOne({ userId });

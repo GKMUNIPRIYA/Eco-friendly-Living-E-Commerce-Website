@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { blogsAPI } from '../services/api';
+import { blogsAPI, api } from '../services/api';
 import BlogCard from '../components/BlogCard';
 import ScrollReveal from '../components/ScrollReveal';
 
@@ -156,25 +156,21 @@ export default function Blog() {
                 className="flex-1 px-4 py-3 rounded-full text-gray-900"
               />
               <button
-                onClick={() => {
-                  const email = (document.getElementById('newsletter-blog') as HTMLInputElement)?.value;
+                onClick={async () => {
+                  const input = document.getElementById('newsletter-blog') as HTMLInputElement;
+                  const email = input?.value;
                   if (email) {
-                    const API_URL = import.meta.env.VITE_API_URL || 'https://eco-friendly-living-e-commerce-website-uwgq.onrender.com/api';
-                    fetch(`${API_URL}/newsletter/subscribe`, {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({ email }),
-                    })
-                      .then((r) => r.json())
-                      .then((d) => {
-                        if (d.success) {
-                          alert('Subscribed successfully!');
-                          (document.getElementById('newsletter-blog') as HTMLInputElement).value = '';
-                        } else {
-                          alert(d.error?.message || 'Subscription failed');
-                        }
-                      })
-                      .catch(() => alert('Subscription error'));
+                    try {
+                      const d = await api.newsletter.subscribe(email);
+                      if (d.success) {
+                        alert('Subscribed successfully!');
+                        input.value = '';
+                      } else {
+                        alert(d.error?.message || 'Subscription failed');
+                      }
+                    } catch (err) {
+                      alert('Subscription error');
+                    }
                   }
                 }}
                 className="bg-[#FF6B35] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#FF5722] transition"

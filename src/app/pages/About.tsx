@@ -127,7 +127,7 @@ export default function About() {
               src="https://images.unsplash.com/photo-1593113646773-028c2d3b6a8c?w=800&auto=format&fit=crop"
               alt="Eco packaging"
               className="rounded-lg shadow-xl w-full h-72 object-cover"
-              onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800'; }}
+              
             />
           </div>
           <div>

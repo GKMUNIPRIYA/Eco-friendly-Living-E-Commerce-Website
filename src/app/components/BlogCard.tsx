@@ -105,10 +105,6 @@ export default function BlogCard({ post }: { post: BlogPost }) {
             alt={post.title}
             className={`w-full h-full object-cover transition-transform duration-700 ${hovered ? 'scale-110' : 'scale-100'
               }`}
-            onError={(e) => {
-              (e.target as HTMLImageElement).src =
-                'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800';
-            }}
           />
           {/* Dark gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />

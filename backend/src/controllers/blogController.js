@@ -152,17 +152,17 @@ export const createBlog = async (req, res) => {
       author: req.body.author || req.user?.firstName || 'Admin',
     });
 
-    // process any uploaded media (multer stores them in req.files)
+    // process any uploaded media (multer-storage-cloudinary stores permanent URL in req.files)
     if (req.files) {
       if (req.files.video && req.files.video[0]) {
         const vf = req.files.video[0];
-        // store relative path so client can resolve via /uploads
-        blog.videoUrl = `/uploads/videos/${vf.filename}`;
+        // file.path = permanent Cloudinary HTTPS URL
+        blog.videoUrl = vf.path;
         blog.videoFileName = vf.filename;
       }
       if (req.files.thumbnail && req.files.thumbnail[0]) {
         const tf = req.files.thumbnail[0];
-        blog.thumbnailImage = `/uploads/thumbnails/${tf.filename}`;
+        blog.thumbnailImage = tf.path;
         blog.thumbnailFileName = tf.filename;
       }
     }
@@ -214,16 +214,16 @@ export const updateBlog = async (req, res) => {
     if (videoUrl) updateObj.videoUrl = videoUrl;
     if (thumbnailImage) updateObj.thumbnailImage = thumbnailImage;
 
-    // process uploaded files if present (multer)
+    // process uploaded files if present (multer-storage-cloudinary sets file.path = Cloudinary URL)
     if (req.files) {
       if (req.files.video && req.files.video[0]) {
         const vf = req.files.video[0];
-        updateObj.videoUrl = `/uploads/videos/${vf.filename}`;
+        updateObj.videoUrl = vf.path; // permanent Cloudinary HTTPS URL
         updateObj.videoFileName = vf.filename;
       }
       if (req.files.thumbnail && req.files.thumbnail[0]) {
         const tf = req.files.thumbnail[0];
-        updateObj.thumbnailImage = `/uploads/thumbnails/${tf.filename}`;
+        updateObj.thumbnailImage = tf.path;
         updateObj.thumbnailFileName = tf.filename;
       }
     }

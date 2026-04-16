@@ -1,7 +1,7 @@
 import express from 'express';
 import * as blogController from '../controllers/blogController.js';
 import { authMiddleware, adminMiddleware, optionalAuthMiddleware } from '../middleware/authMiddleware.js';
-import { uploadBlogMedia } from '../middleware/multer.js';
+import { uploadBlogMediaCloud } from '../config/cloudinary.js';
 
 const router = express.Router();
 
@@ -23,7 +23,7 @@ router.post(
   '/',
   authMiddleware,
   adminMiddleware,
-  uploadBlogMedia.fields([
+  uploadBlogMediaCloud.fields([
     { name: 'video', maxCount: 1 },
     { name: 'thumbnail', maxCount: 1 },
   ]),
@@ -33,7 +33,7 @@ router.put(
   '/:id',
   authMiddleware,
   adminMiddleware,
-  uploadBlogMedia.fields([
+  uploadBlogMediaCloud.fields([
     { name: 'video', maxCount: 1 },
     { name: 'thumbnail', maxCount: 1 },
   ]),

@@ -1,6 +1,6 @@
 import express from 'express';
 import * as productController from '../controllers/productController.js';
-import { uploadImage } from '../middleware/multer.js';
+import { uploadProductImages } from '../config/cloudinary.js';
 import { adminMiddleware, authMiddleware } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
@@ -14,11 +14,11 @@ router.get('/category/:category', productController.getProductsByCategory);
 // GET single product (public)
 router.get('/:id', productController.getProduct);
 
-// POST create product (admin)
-router.post('/', authMiddleware, adminMiddleware, uploadImage.array('images', 10), productController.createProduct);
+// POST create product (admin) — images uploaded directly to Cloudinary
+router.post('/', authMiddleware, adminMiddleware, uploadProductImages.array('images', 10), productController.createProduct);
 
-// PUT update product (admin)
-router.put('/:id', authMiddleware, adminMiddleware, uploadImage.array('images', 10), productController.updateProduct);
+// PUT update product (admin) — images uploaded directly to Cloudinary
+router.put('/:id', authMiddleware, adminMiddleware, uploadProductImages.array('images', 10), productController.updateProduct);
 
 // PUT update product quantity (admin)
 router.put('/:id/quantity', authMiddleware, adminMiddleware, productController.updateProductQuantity);

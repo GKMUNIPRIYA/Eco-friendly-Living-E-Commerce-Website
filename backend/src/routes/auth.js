@@ -2,7 +2,7 @@ import express from 'express';
 import * as authController from '../controllers/authController.js';
 import { authMiddleware } from '../middleware/authMiddleware.js';
 
-import { uploadImage } from '../middleware/multer.js';
+import { uploadProfileImage } from '../config/cloudinary.js';
 
 const router = express.Router();
 
@@ -17,7 +17,7 @@ router.post('/reset-password', authController.resetPassword);
 // Protected routes
 router.get('/profile', authMiddleware, authController.getProfile);
 router.put('/profile', authMiddleware, authController.updateProfile);
-router.post('/profile/image', authMiddleware, uploadImage.single('image'), authController.updateProfileImage);
+router.post('/profile/image', authMiddleware, uploadProfileImage.single('image'), authController.updateProfileImage);
 
 // wishlist endpoints
 router.post('/wishlist', authMiddleware, authController.toggleWishlist);

@@ -82,7 +82,7 @@ export default function AuthPage() {
   const validateSignup = (): boolean => {
     const errs: Record<string, string> = {};
     if (!firstName.trim() || firstName.trim().length < 2) errs.firstName = 'First name is required (min 2 chars)';
-    if (!lastName.trim() || lastName.trim().length < 2) errs.lastName = 'Last name is required (min 2 chars)';
+    if (lastName.trim() && lastName.trim().length < 2) errs.lastName = 'Last name must be at least 2 chars if provided';
     if (!email.trim()) errs.email = 'Email is required';
     else if (!validateEmail(email)) errs.email = 'Please enter a valid email address';
     if (phone && !validatePhone(phone)) errs.phone = 'Please enter a valid phone number (10-15 digits)';
@@ -171,9 +171,6 @@ export default function AuthPage() {
     <div className="auth-root min-h-screen flex items-center justify-center bg-gray-100 pt-24">
       <style>{`
         .container-auth { background: #fff; border-radius: 10px; box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22); position: relative; overflow: hidden; width: 100%; max-width: 768px; min-height: 650px; }
-        @media (max-width: 640px) {
-          .container-auth { min-height: 100vh; }
-        }
         .form-container { position: absolute; top: 0; height: 100%; transition: all 0.6s ease-in-out; overflow-y: auto; }
         .sign-in-container { left: 0; width: 50%; z-index: 2; }
         .sign-up-container { left: 0; width: 50%; opacity: 0; z-index: 1; }
@@ -191,6 +188,17 @@ export default function AuthPage() {
         .container-auth.right-panel-active .overlay-right { transform: translateX(20%); }
         .social { border:1px solid #ddd; border-radius:50%; display:inline-flex; justify-content:center; align-items:center; margin:0 5px; height:40px; width:40px; }
         .field-err input { border-color: #ef4444 !important; }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+          .container-auth { min-height: 850px; display: flex; flex-direction: column; }
+          .form-container { position: relative; width: 100% !important; height: auto !important; transform: none !important; opacity: 1 !important; z-index: 5 !important; }
+          .sign-in-container, .sign-up-container { display: none; }
+          .container-auth:not(.right-panel-active) .sign-in-container { display: flex; }
+          .container-auth.right-panel-active .sign-up-container { display: flex; }
+          .overlay-container { display: none; }
+          .auth-root { padding-top: 10px; }
+        }
       `}</style>
 
       <div className={`container-auth ${rightActive ? 'right-panel-active' : ''}`}>
@@ -207,7 +215,7 @@ export default function AuthPage() {
                 <FieldError field="firstName" />
               </div>
               <div className={fieldErrors.lastName ? 'field-err' : ''}>
-                <input placeholder="Last name *" autoComplete="new-password" value={lastName} onChange={(e) => setLastName(e.target.value)} className="p-2 w-full bg-gray-100 rounded border border-gray-300 text-sm" />
+                <input placeholder="Last name" autoComplete="new-password" value={lastName} onChange={(e) => setLastName(e.target.value)} className="p-2 w-full bg-gray-100 rounded border border-gray-300 text-sm" />
                 <FieldError field="lastName" />
               </div>
             </div>
@@ -272,6 +280,9 @@ export default function AuthPage() {
               <FieldError field="captcha" />
             </div>
             <button type="submit" disabled={loading} className="mt-2 bg-[#ff4b2b] text-white px-6 py-2 rounded-full font-semibold hover:bg-[#ff3a1a] disabled:opacity-50 text-sm">{loading ? 'Creating...' : 'Sign Up'}</button>
+            <div className="mt-4 md:hidden text-sm">
+              Already have an account? <button type="button" onClick={() => { setMode('signin'); setRightActive(false); }} className="text-[#6B8E23] font-bold">Sign In</button>
+            </div>
           </form>
         </div>
 
@@ -318,6 +329,9 @@ export default function AuthPage() {
             </div>
             <a className="mb-4 text-sm hover:underline" href="#">Forgot your password?</a>
             <button type="submit" disabled={loading} className="bg-[#ff4b2b] text-white px-6 py-2 rounded-full font-semibold hover:bg-[#ff3a1a] disabled:opacity-50">{loading ? 'Signing in...' : 'Sign In'}</button>
+            <div className="mt-6 md:hidden text-sm">
+              Don't have an account? <button type="button" onClick={() => { setMode('signup'); setRightActive(true); }} className="text-[#6B8E23] font-bold">Sign Up</button>
+            </div>
           </form>
         </div>
 

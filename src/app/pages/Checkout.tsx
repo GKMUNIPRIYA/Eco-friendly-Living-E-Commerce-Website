@@ -4,6 +4,7 @@ import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { ordersAPI } from '../services/api';
 import { toFullUrl } from '../utils/imageUrl';
+import { ShoppingBag, ChevronRight, Check } from 'lucide-react';
 
 export default function Checkout() {
   const { cart, getCartSubtotal, getCartDiscount, getCartTotal, getItemDiscount, clearCart } = useCart();
@@ -273,20 +274,31 @@ export default function Checkout() {
                   <section>
                     <h2 className="text-xl font-bold text-[#5B6F1E] mb-4">Payment Method</h2>
                     <div className="space-y-3">
-                      {['cod', 'upi', 'card'].map((method) => (
-                        <label key={method} className={`flex items-center gap-4 p-4 border-2 rounded-xl cursor-pointer transition ${formData.paymentMethod === method ? 'border-[#6B8E23] bg-[#F5F5DC]/30' : 'border-gray-100'}`}>
-                          <input type="radio" name="paymentMethod" value={method} checked={formData.paymentMethod === method} onChange={handleChange} className="w-5 h-5 accent-[#6B8E23]" />
+                      {[
+                        { value: 'cod', label: 'Cash on Delivery', desc: 'Pay when your order arrives at the door', icon: '💵' },
+                        { value: 'upi', label: 'Online UPI Payment', desc: 'Pay instantly via GPay, PhonePe, or any UPI app', icon: '📱' },
+                      ].map((method) => (
+                        <label key={method.value} className={`flex items-center gap-4 p-4 border-2 rounded-xl cursor-pointer transition ${formData.paymentMethod === method.value ? 'border-[#6B8E23] bg-[#F5F5DC]/30' : 'border-gray-100 hover:border-gray-200'}`}>
+                          <input type="radio" name="paymentMethod" value={method.value} checked={formData.paymentMethod === method.value} onChange={handleChange} className="w-5 h-5 accent-[#6B8E23]" />
+                          <span className="text-2xl">{method.icon}</span>
                           <div className="flex-1">
-                            <span className="block font-bold text-gray-800 capitalize">{method === 'cod' ? 'Cash on Delivery' : method === 'upi' ? 'Online UPI Payment' : 'Credit / Debit Card'}</span>
+                            <span className="block font-bold text-gray-800">{method.label}</span>
+                            <span className="block text-xs text-gray-500 mt-0.5">{method.desc}</span>
                           </div>
                         </label>
                       ))}
                     </div>
                   </section>
 
-                  <button type="submit" className="w-full bg-[#6B8E23] text-white py-4 rounded-full font-bold hover:bg-[#5B6F1E] transition-all text-lg shadow-lg active:scale-95">
-                    {formData.paymentMethod === 'upi' ? 'Proceed to Payment' : 'Place Order Successfully'}
-                  </button>
+                  <div className="pt-4">
+                    <button type="submit" className="w-full bg-[#6B8E23] text-white py-4 rounded-full font-bold hover:bg-[#5B6F1E] transition-all text-lg shadow-lg active:scale-95 flex items-center justify-center gap-2">
+                      <ShoppingBag className="w-5 h-5" />
+                      {formData.paymentMethod === 'upi' ? 'Proceed to Payment' : 'Confirm Order Successfully'}
+                    </button>
+                    <p className="text-center text-xs text-gray-400 mt-4 leading-relaxed px-4">
+                      By placing this order, you agree to TerraKind's Terms of Service and Privacy Policy.
+                    </p>
+                  </div>
                 </div>
               </form>
             )}

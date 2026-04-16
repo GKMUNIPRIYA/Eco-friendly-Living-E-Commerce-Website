@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Mail, Trash2, Download, Search } from 'lucide-react';
+import { api } from '../../services/api';
 
 interface Subscriber {
   _id: string;
@@ -25,21 +26,10 @@ export default function SubscriberManagement() {
   const fetchSubscribers = async () => {
     try {
       setLoading(true);
-      const API_URL = import.meta.env.VITE_API_URL || 'https://eco-friendly-living-e-commerce-website-uwgq.onrender.com/api';
-      const response = await fetch(`${API_URL}/newsletter?page=${currentPage}&limit=${itemsPerPage}`);
+      const res = await api.newsletter.getSubscribers(currentPage, itemsPerPage);
       
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData?.error?.message || 'Failed to fetch subscribers');
-      }
-      
-      const data = await response.json();
-      if (data.success === false) {
-        throw new Error(data?.error?.message || 'Failed to load subscribers');
-      }
-      
-      setSubscribers(data.data || []);
-      setTotalCount(data.total || 0);
+      setSubscribers(res.data || []);
+      setTotalCount(res.total || 0);
     } catch (error) {
       console.error('Error fetching subscribers:', error);
       alert(`Error loading subscribers: ${error instanceof Error ? error.message : 'Unknown error'}`);
@@ -50,18 +40,7 @@ export default function SubscriberManagement() {
 
   const handleUnsubscribe = async (email: string) => {
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'https://eco-friendly-living-e-commerce-website-uwgq.onrender.com/api';
-      const response = await fetch(`${API_URL}/newsletter/unsubscribe`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
-
-      const data = await response.json();
-      
-      if (!response.ok || !data.success) {
-        throw new Error(data?.error?.message || 'Failed to unsubscribe');
-      }
+      await api.newsletter.unsubscribe(email);
       
       setShowDeleteConfirm(null);
       alert('Subscriber removed successfully');

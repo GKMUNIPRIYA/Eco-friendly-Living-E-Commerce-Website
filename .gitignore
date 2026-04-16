@@ -1,7 +1,1 @@
 node_modules
-build
-.env
-.DS_Store
-npm-debug.loggit rm -r --cached .
-backend/.env
-backend/uploads/

@@ -43,13 +43,12 @@ export default function Cart() {
               {cart.map((item) => (
                 <div
                   key={item.id}
-                  className="p-6 border-b last:border-b-0 flex gap-6"
+                  className="p-4 sm:p-6 border-b last:border-b-0 flex flex-col sm:flex-row gap-4 sm:gap-6"
                 >
                   <img
                     src={toFullUrl(item.image)}
                     alt={item.name}
-                    className="w-32 h-32 object-cover rounded-lg"
-                    onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800'; }}
+                    className="w-24 h-24 sm:w-32 sm:h-32 object-cover rounded-lg mx-auto sm:mx-0"
                   />
                   <div className="flex-1">
                     <Link
@@ -61,7 +60,7 @@ export default function Cart() {
                     <p className="text-gray-600 text-sm mb-4">
                       {item.description}
                     </p>
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                       <div className="flex items-center gap-4">
                         <div className="flex items-center border-2 border-gray-300 rounded-lg">
                           <button
@@ -87,7 +86,7 @@ export default function Cart() {
                           <Trash2 className="w-5 h-5" />
                         </button>
                       </div>
-                      <div className="text-right">
+                      <div className="text-left sm:text-right w-full sm:w-auto mt-2 sm:mt-0">
                         <p className="text-[#6B8E23] font-bold text-xl">
                           ₹{item.price * item.quantity - getItemDiscount(item)}
                         </p>

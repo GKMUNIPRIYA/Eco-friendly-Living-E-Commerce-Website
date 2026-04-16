@@ -132,7 +132,7 @@ export default function Admin() {
   };
 
   const tabClass = (tab: AdminTab) =>
-    `py-4 px-4 font-bold border-b-2 transition-all duration-300 flex items-center justify-center md:justify-start gap-2 whitespace-nowrap relative ${activeTab === tab
+    `py-3 px-3 md:py-4 md:px-4 font-bold border-b-2 transition-all duration-300 flex items-center justify-center gap-1.5 whitespace-nowrap flex-shrink-0 text-sm ${activeTab === tab
       ? 'border-[#6B8E23] text-[#6B8E23] bg-green-50/50'
       : 'border-transparent text-gray-500 hover:text-[#6B8E23] hover:bg-gray-50'}`;
 
@@ -146,8 +146,8 @@ export default function Admin() {
               <Package className="w-8 h-8 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-extrabold tracking-tight">TerraKind Admin</h1>
-              <p className="text-green-50 text-xs font-medium uppercase tracking-wider mt-0.5 opacity-80">Commerce Control Center</p>
+              <h1 className="text-xl md:text-3xl font-extrabold tracking-tight">TerraKind Admin</h1>
+              <p className="text-green-50 text-xs font-medium uppercase tracking-wider mt-0.5 opacity-80 hidden sm:block">Commerce Control Center</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
@@ -170,10 +170,10 @@ export default function Admin() {
         </div>
       </div>
 
-      {/* Navigation Tabs */}
-      <div className="bg-white border-b sticky top-0 z-10 overflow-x-auto lg:overflow-visible">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-3 md:flex md:flex-wrap lg:flex-nowrap gap-1 min-w-max">
+      {/* Navigation Tabs - horizontally scrollable on mobile */}
+      <div className="bg-white border-b sticky top-0 z-10">
+        <div className="max-w-7xl mx-auto px-2 md:px-4">
+          <div className="flex overflow-x-auto scrollbar-hide -mb-px">
             <button onClick={() => setActiveTab('dashboard')} className={tabClass('dashboard')}>Dashboard</button>
             <button onClick={() => setActiveTab('products')} className={tabClass('products')}>
               <Package className="w-4 h-4" />Products

@@ -81,12 +81,12 @@ export const createProduct = async (req, res) => {
     const { name, price, image, category, description } = req.body;
 
     // Handle multiple uploaded files
+    // multer-storage-cloudinary sets f.path to the full Cloudinary HTTPS URL
     let imageUrls = [];
     if (req.files && req.files.length > 0) {
-      imageUrls = req.files.map((f) => `/uploads/images/${f.filename}`);
+      imageUrls = req.files.map((f) => f.path); // permanent Cloudinary URL
     } else if (req.file) {
-      // backward compat for single file
-      imageUrls = [`/uploads/images/${req.file.filename}`];
+      imageUrls = [req.file.path];
     }
 
     // Primary image: first uploaded file or URL from body
@@ -134,9 +134,22 @@ export const createProduct = async (req, res) => {
 // Update product
 export const updateProduct = async (req, res) => {
   try {
+    // Build update object from body
+    const updateData = { ...req.body };
+
+    // If new images were uploaded to Cloudinary, override image fields
+    if (req.files && req.files.length > 0) {
+      const imageUrls = req.files.map((f) => f.path); // permanent Cloudinary URLs
+      updateData.image = imageUrls[0];
+      updateData.images = imageUrls;
+    } else if (req.file) {
+      updateData.image = req.file.path;
+      updateData.images = [req.file.path];
+    }
+
     const product = await Product.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      updateData,
       { new: true, runValidators: true }
     );
 

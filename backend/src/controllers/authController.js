@@ -1,4 +1,7 @@
 import User from '../models/User.js';
+import Wishlist from '../models/Wishlist.js';
+import Product from '../models/Product.js';
+import mongoose from 'mongoose';
 import { generateToken, generateRandomToken } from '../services/tokenService.js';
 import { sendWelcomeEmail, sendPasswordResetEmail, sendVerificationEmail } from '../services/emailService.js';
 import { logActivity } from './loginActivityController.js';
@@ -12,7 +15,7 @@ export const register = async (req, res) => {
     const { firstName, lastName, email, password, confirmPassword, phone, dateOfBirth, address, city, state, pincode } = req.body;
 
     // Validation
-    if (!firstName || !lastName || !email || !password || !confirmPassword) {
+    if (!firstName || !email || !password || !confirmPassword) {
       return res.status(400).json({
         success: false,
         error: {
@@ -534,45 +537,72 @@ export const toggleWishlist = async (req, res) => {
       });
     }
 
-    // Use current authenticated user
-    const user = await User.findById(req.userId);
-    if (!user) {
+    const userId = req.userId;
+    if (!userId) {
       return res.status(401).json({
         success: false,
         error: {
-          code: 'NOT_FOUND',
-          message: 'User account not found or session expired',
+          code: 'UNAUTHORIZED',
+          message: 'Please login to update wishlist',
         },
       });
     }
 
-    // Force array
-    if (!user.wishlist) user.wishlist = [];
+    // Safety: check if product exists (handling both ObjectId and static string IDs)
+    // If it's a valid ObjectId string, use findById. Otherwise, it might be a static ID.
+    // For local dev with p1, p2, we don't strictly reject them if we want them to work.
+    // But we should at least try to see if it's a real product if possible.
+    let productExists = true;
+    if (mongoose.Types.ObjectId.isValid(productId)) {
+        const p = await Product.findById(productId);
+        if (!p) productExists = false;
+    }
+
+    // We proceed anyway to support static frontend IDs like 'p1' if requested,
+    // but the analytics might be less accurate.
     
-    // Normalize comparison: everything as strings
-    const pid = productId.toString();
-    const wishListArray = user.wishlist.map(id => id ? id.toString() : '');
-    const exists = wishListArray.includes(pid);
+    // Use the Wishlist collection
+    let wishlist = await Wishlist.findOne({ userId });
+
+    if (!wishlist) {
+      // Create new wishlist
+      wishlist = new Wishlist({
+        userId,
+        products: [{ productId, addedAt: new Date() }]
+      });
+      await wishlist.save();
+      
+      // Also sync to user model for backward compatibility if needed
+      await User.findByIdAndUpdate(userId, { $addToSet: { wishlist: productId } });
+
+      return res.status(200).json({
+        success: true,
+        added: true,
+        wishlist: [productId],
+      });
+    }
+
+    // Check if exists in wishlist document
+    const productIdx = wishlist.products.findIndex(p => p.productId && p.productId.toString() === productId.toString());
     
     let added = false;
-    if (exists) {
+    if (productIdx > -1) {
       // Remove
-      user.wishlist = user.wishlist.filter(id => id && id.toString() !== pid);
-      added = false;
+      wishlist.products.splice(productIdx, 1);
+      await User.findByIdAndUpdate(userId, { $pull: { wishlist: productId } });
     } else {
       // Add
-      user.wishlist.push(pid);
+      wishlist.products.push({ productId, addedAt: new Date() });
+      await User.findByIdAndUpdate(userId, { $addToSet: { wishlist: productId } });
       added = true;
     }
 
-    // To bypass validation of other fields (like password) which are not present in 'user' object
-    // we use markModified and save with skip validation, or better just use findByIdAndUpdate
-    await User.findByIdAndUpdate(req.userId, { wishlist: user.wishlist });
+    await wishlist.save();
 
-    return res.status(200).json({
+    res.status(200).json({
       success: true,
       added,
-      wishlist: user.wishlist,
+      wishlist: wishlist.products.map(p => p.productId),
     });
   } catch (error) {
     console.error('[WISHLIST] Toggle error:', error);

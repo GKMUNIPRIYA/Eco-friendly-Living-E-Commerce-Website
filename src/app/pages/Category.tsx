@@ -109,7 +109,6 @@ export default function Category() {
           src={category.image}
           alt={category.name}
           className="w-full h-full object-cover object-center transform scale-105"
-          onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=1920'; }}
         />
         <div className="absolute inset-0 bg-black/30" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />

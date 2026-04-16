@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { authAPI } from '../services/api';
+import { useAuth } from '../context/AuthContext';
 import { Mail, CheckCircle2, RefreshCw, AlertTriangle } from 'lucide-react';
 
 export default function VerifyEmail() {
     const navigate = useNavigate();
+    const { login } = useAuth();
     const [searchParams] = useSearchParams();
     const email = searchParams.get('email') || '';
     const initialCode = searchParams.get('code') || '';
@@ -67,9 +69,15 @@ export default function VerifyEmail() {
         setLoading(true);
         try {
             const res: any = await authAPI.verifyEmail({ email, code });
-            if (res?.success) {
-                setSuccess('Email verified successfully! Redirecting to login...');
+            if (res?.success && res.token && res.user) {
+                setSuccess('Email verified successfully! Logging you in...');
                 setFallbackCode('');
+                // Auto login the user
+                login(res.token, res.user);
+                setTimeout(() => navigate('/'), 2000);
+            } else if (res?.success) {
+                // Fallback if for some reason token/user wasn't returned
+                setSuccess('Email verified successfully! Redirecting to login...');
                 setTimeout(() => navigate('/login'), 2000);
             }
         } catch (err: any) {

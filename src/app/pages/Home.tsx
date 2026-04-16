@@ -43,7 +43,7 @@ export default function Home() {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section
-        className="relative text-white py-24"
+        className="relative text-white py-12 md:py-24"
         style={{
           backgroundImage: "url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1600&auto=format&fit=crop')",
           backgroundSize: 'cover',
@@ -53,10 +53,10 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-r from-[#6B8E23]/90 to-[#8FBC5A]/80" />
         <div className="relative z-10 max-w-7xl mx-auto px-4">
           <div className="max-w-2xl">
-            <h1 className="text-5xl font-bold mb-6">
+            <h1 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6">
               Caring for Earth, One Choice at a Time
             </h1>
-            <p className="text-xl mb-8">
+            <p className="text-lg md:text-xl mb-6 md:mb-8">
               Discover sustainable, eco-friendly products that make a difference for our planet and your lifestyle.
             </p>
             <div className="flex gap-4">
@@ -81,7 +81,7 @@ export default function Home() {
       <ScrollReveal variant="fade-up">
         <section className="py-16 bg-[#F5F5DC]">
           <div className="max-w-7xl mx-auto px-4">
-            <div className="grid md:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
               <div className="text-center">
                 <div className="w-16 h-16 bg-[#6B8E23] rounded-full flex items-center justify-center mx-auto mb-4">
                   <Leaf className="w-8 h-8 text-white" />
@@ -169,7 +169,7 @@ export default function Home() {
               Featured Products
             </h2>
             {featuredProducts.length > 0 ? (
-              <div className="grid md:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
                 {featuredProducts.map((product) => (
                   <div
                     key={product.id}
@@ -268,7 +268,7 @@ export default function Home() {
                   src="https://images.unsplash.com/photo-1542601098-3ade3a4df43b?q=80&w=1200"
                   alt="Sustainability"
                   className="rounded-lg shadow-xl w-full h-72 object-cover"
-                  onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800'; }}
+                  
                 />
               </div>
             </div>
@@ -308,14 +308,7 @@ export default function Home() {
                   }
 
                   try {
-                    const API_URL = import.meta.env.VITE_API_URL || 'https://eco-friendly-living-e-commerce-website-uwgq.onrender.com/api';
-                    const response = await fetch(`${API_URL}/newsletter/subscribe`, {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({ email }),
-                    });
-
-                    const data = await response.json();
+                    const data = await api.newsletter.subscribe(email);
 
                     if (data.success) {
                       alert('✓ Subscribed successfully! Thank you for joining our green community.');

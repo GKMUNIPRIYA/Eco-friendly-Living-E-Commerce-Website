@@ -24,9 +24,23 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: process.env.VITE_API_URL || 'http://localhost:3000',
+        target: process.env.VITE_API_URL || 'https://eco-friendly-living-e-commerce-website.onrender.com',
         changeOrigin: true,
         rewrite: (path) => path,
+      },
+    },
+  },
+  build: {
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('lucide-react')) return 'icons';
+            if (id.includes('react')) return 'vendor';
+            return 'vendor'; // all other node_modules
+          }
+        },
       },
     },
   },

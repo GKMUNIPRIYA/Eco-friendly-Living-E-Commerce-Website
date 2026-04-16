@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import { offersAPI } from '../services/api';
 
 export interface Product {
   id: string;
@@ -47,9 +48,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   // fetch active offers on mount
   useEffect(() => {
-    const API_URL = import.meta.env.VITE_API_URL || 'https://eco-friendly-living-e-commerce-website-uwgq.onrender.com/api';
-    fetch(`${API_URL}/offers/active`)
-      .then((r) => r.json())
+    offersAPI.getActive()
       .then((data) => {
         if (data.success && Array.isArray(data.data)) {
           setOffers(data.data);

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authAPI } from '../services/api';
+import { useAuth } from '../context/AuthContext';
 
 // Validation helpers
 const validateEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -25,11 +26,12 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const validate = (): boolean => {
     const errs: Record<string, string> = {};
     if (!firstName.trim() || firstName.trim().length < 2) errs.firstName = 'First name required (min 2 chars)';
-    if (!lastName.trim() || lastName.trim().length < 2) errs.lastName = 'Last name required (min 2 chars)';
+    if (lastName.trim() && lastName.trim().length < 2) errs.lastName = 'Last name must be at least 2 chars if provided';
     if (!email.trim()) errs.email = 'Email is required';
     else if (!validateEmail(email)) errs.email = 'Please enter a valid email';
     if (phone && !validatePhone(phone)) errs.phone = 'Invalid phone (10-15 digits)';
@@ -68,6 +70,10 @@ export default function Register() {
         const params = new URLSearchParams({ email: res.email || email });
         if (res.devCode) params.set('code', res.devCode);
         navigate(`/verify-email?${params.toString()}`);
+      } else if (res?.token && res?.user) {
+        setSuccess('Registration successful! Logging you in...');
+        login(res.token, res.user);
+        setTimeout(() => navigate('/'), 1500);
       } else {
         setSuccess('Registration successful! You can now log in.');
         setTimeout(() => navigate('/login'), 1500);
@@ -103,7 +109,7 @@ export default function Register() {
               <FieldError field="firstName" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Last Name *</label>
+              <label className="block text-sm font-medium text-gray-700">Last Name</label>
               <input value={lastName} onChange={(e) => setLastName(e.target.value)} autoComplete="off"
                 className={`mt-1 block w-full border rounded px-3 py-2 ${fieldErrors.lastName ? 'border-red-400' : ''}`} />
               <FieldError field="lastName" />

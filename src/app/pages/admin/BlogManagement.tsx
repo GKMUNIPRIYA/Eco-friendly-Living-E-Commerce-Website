@@ -50,7 +50,6 @@ export default function BlogManagement() {
                 src={blog.thumbnailImage}
                 alt={blog.title}
                 className="w-24 h-24 object-cover rounded-lg"
-                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
               />
             </div>
           )}

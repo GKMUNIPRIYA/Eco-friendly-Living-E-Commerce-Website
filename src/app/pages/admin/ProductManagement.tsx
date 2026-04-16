@@ -22,7 +22,7 @@ export default function ProductManagement() {
               src={toFullUrl(product.image)}
               alt={product.name}
               className="w-32 h-32 object-cover rounded-lg"
-              onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800'; }}
+              
             />
             <div className="flex-1">
               <h3 className="text-xl font-bold text-[#5B6F1E] mb-2">{product.name}</h3>

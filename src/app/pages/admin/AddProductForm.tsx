@@ -113,15 +113,17 @@ export default function AddProductForm({ onClose }: Props) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        <div className="sticky top-0 bg-[#6B8E23] text-white p-6 flex justify-between items-center">
+      <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] flex flex-col">
+        {/* Fixed Header - does NOT scroll with content */}
+        <div className="bg-[#6B8E23] text-white p-6 flex justify-between items-center rounded-t-lg flex-shrink-0">
           <h2 className="text-2xl font-bold">Add New Product</h2>
           <button onClick={onClose} className="hover:bg-[#5B7A1E] p-2 rounded transition">
             <X className="w-6 h-6" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+        {/* Scrollable Form Body */}
+        <form onSubmit={handleSubmit} className="p-6 space-y-4 overflow-y-auto flex-1">
           <div>
             <label className="block text-sm font-semibold text-[#5B6F1E] mb-2">Product Name *</label>
             <input

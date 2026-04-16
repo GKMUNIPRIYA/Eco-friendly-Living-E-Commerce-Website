@@ -117,7 +117,6 @@ export default function AdminProfile() {
                         })()} 
                         className="w-full h-full object-cover" 
                         alt="Profile" 
-                        onError={(e) => { (e.target as HTMLImageElement).src = 'https://ui-avatars.com/api/?name=' + fullName; }}
                       />
                     ) : formData.firstName && formData.lastName ? (
                       `${formData.firstName[0]}${formData.lastName[0]}`.toUpperCase()
