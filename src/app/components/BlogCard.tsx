@@ -5,12 +5,7 @@ import { blogsAPI } from '../services/api';
 import { toast } from 'sonner';
 
 // Resolve relative upload paths to full backend URLs
-const API_HOST = (import.meta.env.VITE_API_URL || 'http://localhost:3000/api').replace(/\/api$/, '');
-function toFullUrl(src: string | undefined): string | undefined {
-  if (!src) return undefined;
-  if (src.startsWith('http://') || src.startsWith('https://')) return src;
-  return src.startsWith('/') ? `${API_HOST}${src}` : `${API_HOST}/${src}`;
-}
+import { ImageWithFallback } from '../components/UIUX/ImageWithFallback';
 
 interface BlogPost {
   _id: string;
@@ -82,13 +77,7 @@ export default function BlogCard({ post }: { post: BlogPost }) {
     post.publishedDate || post.createdAt || new Date().toISOString()
   ).toLocaleDateString();
 
-  const previewText = post.excerpt || (post.description
-    ? post.description.length > 120
-      ? post.description.slice(0, 120) + '...'
-      : post.description
-    : '');
-
-  const heroImage = toFullUrl(post.thumbnailImage) || 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800';
+  const previewText = post.excerpt || post.description || '';
 
   return (
     <Link
@@ -100,8 +89,8 @@ export default function BlogCard({ post }: { post: BlogPost }) {
       <article className="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 overflow-hidden transform hover:-translate-y-1">
         {/* Magazine-style Image with Title Overlay */}
         <div className="relative overflow-hidden h-72">
-          <img
-            src={heroImage}
+          <ImageWithFallback
+            src={post.thumbnailImage}
             alt={post.title}
             className={`w-full h-full object-cover transition-transform duration-700 ${hovered ? 'scale-110' : 'scale-100'
               }`}

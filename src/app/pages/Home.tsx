@@ -169,11 +169,11 @@ export default function Home() {
               Featured Products
             </h2>
             {featuredProducts.length > 0 ? (
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+              <div className="flex flex-wrap justify-center gap-4 md:gap-6">
                 {featuredProducts.map((product) => (
                   <div
                     key={product.id}
-                    className="bg-white rounded-lg shadow-md hover:shadow-xl transition overflow-hidden group relative"
+                    className="w-full sm:w-[calc(50%-1rem)] md:w-[calc(25%-1.5rem)] max-w-[280px] bg-white rounded-lg shadow-md hover:shadow-xl transition overflow-hidden group relative flex-shrink-0"
                   >
                     <button
                       onClick={async (e) => {
@@ -264,11 +264,10 @@ export default function Home() {
                 </Link>
               </div>
               <div>
-                <img
+                <ImageWithFallback
                   src="https://images.unsplash.com/photo-1542601098-3ade3a4df43b?q=80&w=1200"
                   alt="Sustainability"
                   className="rounded-lg shadow-xl w-full h-72 object-cover"
-                  
                 />
               </div>
             </div>

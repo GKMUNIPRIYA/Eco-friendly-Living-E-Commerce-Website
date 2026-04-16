@@ -235,7 +235,7 @@ export default function AuthPage() {
             <div className="w-full mb-1">
               <input placeholder="Address" autoComplete="new-password" value={address} onChange={(e) => setAddress(e.target.value)} className="p-2 w-full bg-gray-100 rounded border border-gray-300 text-sm" />
             </div>
-            <div className="w-full grid grid-cols-3 gap-2 mb-1">
+            <div className="w-full grid grid-cols-1 sm:grid-cols-3 gap-2 mb-1">
               <input placeholder="City" autoComplete="new-password" value={city} onChange={(e) => setCity(e.target.value)} className="p-2 w-full bg-gray-100 rounded border border-gray-300 text-sm" />
               <input placeholder="State" autoComplete="new-password" value={state} onChange={(e) => setState(e.target.value)} className="p-2 w-full bg-gray-100 rounded border border-gray-300 text-sm" />
               <div className={fieldErrors.pincode ? 'field-err' : ''}>

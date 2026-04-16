@@ -6,6 +6,7 @@ import ProductImageSlider from '../components/ProductImageSlider';
 import { ShoppingCart, Heart } from 'lucide-react';
 import { toast } from 'sonner';
 import { productsAPI, offersAPI, ordersAPI } from '../services/api';
+import { ImageWithFallback } from '../components/UIUX/ImageWithFallback';
 
 export default function Category() {
   const { categoryId } = useParams();
@@ -105,7 +106,7 @@ export default function Category() {
     <div className="min-h-screen bg-gray-50">
       {/* Category Header - Full cinematic banner */}
       <div className="relative h-[60vh] min-h-[400px] w-full overflow-hidden">
-        <img
+        <ImageWithFallback
           src={category.image}
           alt={category.name}
           className="w-full h-full object-cover object-center transform scale-105"

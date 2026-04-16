@@ -43,21 +43,21 @@ export default function Contact() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#6B8E23] to-[#8FBC5A] text-white py-16">
+      <div className="bg-gradient-to-r from-[#6B8E23] to-[#8FBC5A] text-white py-10 md:py-16">
         <div className="max-w-7xl mx-auto px-4">
-          <h1 className="text-4xl font-bold mb-4">Contact Us</h1>
-          <p className="text-xl">
+          <h1 className="text-3xl md:text-4xl font-bold mb-4">Contact Us</h1>
+          <p className="text-lg md:text-xl">
             We'd love to hear from you! Get in touch with our eco-friendly team.
           </p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="grid md:grid-cols-2 gap-12">
+      <div className="max-w-7xl mx-auto px-4 py-8 md:py-12">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12">
           {/* Contact Form */}
           <div>
-            <div className="bg-white rounded-lg shadow-lg p-8">
-              <h2 className="text-2xl font-bold text-[#5B6F1E] mb-6">Send us a Message</h2>
+            <div className="bg-white rounded-lg shadow-lg p-6 md:p-8">
+              <h2 className="text-xl md:text-2xl font-bold text-[#5B6F1E] mb-6">Send us a Message</h2>
               <form onSubmit={handleSubmit} className="space-y-6" autoComplete="off">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">

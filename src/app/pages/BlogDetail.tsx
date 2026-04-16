@@ -3,13 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { Calendar, User, Clock, ArrowLeft, Heart, Share2, Tag } from 'lucide-react';
 import { blogsAPI } from '../services/api';
 import { toast } from 'sonner';
-
-const API_HOST = (import.meta.env.VITE_API_URL || 'http://localhost:3000/api').replace(/\/api$/, '');
-function toFullUrl(src: string | undefined): string | undefined {
-    if (!src) return undefined;
-    if (src.startsWith('http://') || src.startsWith('https://')) return src;
-    return src.startsWith('/') ? `${API_HOST}${src}` : `${API_HOST}/${src}`;
-}
+import { ImageWithFallback } from '../components/UIUX/ImageWithFallback';
 
 interface BlogData {
     _id: string;
@@ -128,7 +122,6 @@ export default function BlogDetail() {
         day: 'numeric',
     });
 
-    const heroImage = toFullUrl(blog.thumbnailImage) || 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1600';
     const contentParagraphs = (blog.content || blog.description || '').split(/\n\n+/).filter(Boolean);
 
     return (
@@ -138,8 +131,8 @@ export default function BlogDetail() {
         >
             {/* Hero Section */}
             <div className="relative h-[50vh] min-h-[400px] overflow-hidden">
-                <img
-                    src={heroImage}
+                <ImageWithFallback
+                    src={blog.thumbnailImage}
                     alt={blog.title}
                     className="w-full h-full object-cover"
                 />

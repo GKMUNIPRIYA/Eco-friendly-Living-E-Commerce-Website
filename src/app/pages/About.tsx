@@ -123,11 +123,10 @@ export default function About() {
         {/* Our Commitment */}
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <img
+            <ImageWithFallback
               src="https://images.unsplash.com/photo-1593113646773-028c2d3b6a8c?w=800&auto=format&fit=crop"
               alt="Eco packaging"
               className="rounded-lg shadow-xl w-full h-72 object-cover"
-              
             />
           </div>
           <div>

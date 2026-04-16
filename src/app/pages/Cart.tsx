@@ -1,8 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
-import { toFullUrl } from '../utils/imageUrl';
 import { Trash2, Plus, Minus, ShoppingBag } from 'lucide-react';
+import { ImageWithFallback } from '../components/UIUX/ImageWithFallback';
 
 export default function Cart() {
   const { cart, updateQuantity, removeFromCart, getCartSubtotal, getCartDiscount, getCartTotal, getItemDiscount } = useCart();
@@ -45,8 +45,8 @@ export default function Cart() {
                   key={item.id}
                   className="p-4 sm:p-6 border-b last:border-b-0 flex flex-col sm:flex-row gap-4 sm:gap-6"
                 >
-                  <img
-                    src={toFullUrl(item.image)}
+                  <ImageWithFallback
+                    src={item.image}
                     alt={item.name}
                     className="w-24 h-24 sm:w-32 sm:h-32 object-cover rounded-lg mx-auto sm:mx-0"
                   />

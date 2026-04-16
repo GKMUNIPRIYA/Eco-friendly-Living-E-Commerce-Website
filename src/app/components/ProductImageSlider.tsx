@@ -1,12 +1,6 @@
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-
-const API_HOST = (import.meta.env.VITE_API_URL || 'http://localhost:3000/api').replace(/\/api$/, '');
-function toFullUrl(src: string): string {
-    if (!src) return '';
-    if (src.startsWith('http://') || src.startsWith('https://')) return src;
-    return src.startsWith('/') ? `${API_HOST}${src}` : `${API_HOST}/${src}`;
-}
+import { ImageWithFallback } from './UIUX/ImageWithFallback';
 
 interface Props {
     image: string;
@@ -38,8 +32,8 @@ export default function ProductImageSlider({ image, images, alt, mode = 'card', 
         if (mode === 'detail') {
             return (
                 <div className={`bg-white rounded-lg shadow-lg overflow-hidden ${className}`}>
-                    <img
-                        src={toFullUrl(allImages[0])}
+                    <ImageWithFallback
+                        src={allImages[0]}
                         alt={alt}
                         className="w-full h-[500px] object-cover"
                     />
@@ -47,8 +41,8 @@ export default function ProductImageSlider({ image, images, alt, mode = 'card', 
             );
         }
         return (
-            <img
-                src={toFullUrl(allImages[0])}
+            <ImageWithFallback
+                src={allImages[0]}
                 alt={alt}
                 className={className}
             />
@@ -58,9 +52,9 @@ export default function ProductImageSlider({ image, images, alt, mode = 'card', 
     // ======== DETAIL MODE (Flipkart-style) ========
     if (mode === 'detail') {
         return (
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 overflow-hidden">
                 {/* Thumbnail strip - horizontal on mobile, vertical on desktop */}
-                <div className="flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto max-h-[100px] sm:max-h-[500px] order-2 sm:order-1 scrollbar-hide">
+                <div className="flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto max-h-[100px] sm:max-h-[500px] order-2 sm:order-1 scrollbar-hide w-full sm:w-auto">
                     {allImages.map((img, i) => (
                         <button
                             key={i}
@@ -68,8 +62,8 @@ export default function ProductImageSlider({ image, images, alt, mode = 'card', 
                             className={`w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden border-2 transition flex-shrink-0 ${i === current ? 'border-[#6B8E23] shadow-md' : 'border-gray-200 hover:border-[#8FBC5A]'
                                 }`}
                         >
-                            <img
-                                src={toFullUrl(img)}
+                            <ImageWithFallback
+                                src={img}
                                 alt={`${alt} ${i + 1}`}
                                 className="w-full h-full object-cover"
                             />
@@ -78,8 +72,8 @@ export default function ProductImageSlider({ image, images, alt, mode = 'card', 
                 </div>
                 {/* Main image */}
                 <div className={`flex-1 bg-white rounded-lg shadow-lg overflow-hidden relative group order-1 sm:order-2 ${className}`}>
-                    <img
-                        src={toFullUrl(allImages[current])}
+                    <ImageWithFallback
+                        src={allImages[current]}
                         alt={alt}
                         className="w-full h-[350px] sm:h-[500px] object-cover transition-opacity duration-300"
                     />
@@ -102,8 +96,8 @@ export default function ProductImageSlider({ image, images, alt, mode = 'card', 
     // ======== CARD MODE ========
     return (
         <div className="relative group overflow-hidden">
-            <img
-                src={toFullUrl(allImages[current])}
+            <ImageWithFallback
+                src={allImages[current]}
                 alt={alt}
                 className={`transition-opacity duration-300 ${className}`}
             />

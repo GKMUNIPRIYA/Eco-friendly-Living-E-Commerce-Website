@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { blogsAPI, api } from '../services/api';
 import BlogCard from '../components/BlogCard';
 import ScrollReveal from '../components/ScrollReveal';
+import { ImageWithFallback } from '../components/UIUX/ImageWithFallback';
 
 interface BlogPost {
   _id: string;
@@ -90,7 +91,7 @@ export default function Blog() {
     >
       {/* Hero Banner */}
       <div className="relative h-72 overflow-hidden">
-        <img
+        <ImageWithFallback
           src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&auto=format&fit=crop"
           alt="Eco Blog"
           className="w-full h-full object-cover"

@@ -115,7 +115,7 @@ export default function ProductDetail() {
   const relatedProducts: Product[] = [];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 overflow-x-hidden">
       {/* Breadcrumb */}
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 py-4">
@@ -132,10 +132,10 @@ export default function ProductDetail() {
       </div>
 
       {/* Product Detail */}
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="grid md:grid-cols-2 gap-12">
+      <div className="max-w-7xl mx-auto px-4 py-8 md:py-12">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12">
           {/* Product Image Slider */}
-          <div>
+          <div className="min-w-0">
             <ProductImageSlider
               image={product.image}
               images={product.images}
@@ -145,7 +145,7 @@ export default function ProductDetail() {
           </div>
 
           {/* Product Info */}
-          <div>
+          <div className="min-w-0">
             <div className="flex items-center gap-2 mb-4">
               <span className="bg-[#6B8E23] text-white px-3 py-1 rounded-full text-sm">
                 Eco-Friendly
@@ -159,7 +159,7 @@ export default function ProductDetail() {
               {product.name}
             </h1>
 
-            <p className="text-gray-600 text-lg mb-6">{product.description}</p>
+            <p className="text-gray-600 text-lg mb-6 break-words">{product.description}</p>
 
             <div className="flex items-baseline gap-4 mb-8">
               <p className="text-4xl font-bold text-[#6B8E23]">₹{product.price}</p>
