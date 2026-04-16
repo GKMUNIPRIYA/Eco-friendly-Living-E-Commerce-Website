@@ -7,11 +7,12 @@ import { toast } from 'sonner';
 
 interface Props {
   onClose: () => void;
+  initialData?: Offer;
 }
 
-export default function AddOfferForm({ onClose }: Props) {
-  const { addOffer } = useAdmin();
-  const [formData, setFormData] = useState<Offer>({
+export default function AddOfferForm({ onClose, initialData }: Props) {
+  const { addOffer, updateOffer } = useAdmin();
+  const [formData, setFormData] = useState<Offer>(initialData || {
     id: '',
     title: '',
     description: '',
@@ -53,35 +54,43 @@ export default function AddOfferForm({ onClose }: Props) {
           isActive: formData.isActive,
         };
 
-        const res: any = await offersAPI.create(payload);
-        const created = res?.data || res;
+        const isEdit = !!initialData;
+        const res: any = isEdit 
+          ? await offersAPI.update(initialData!.id, payload)
+          : await offersAPI.create(payload);
+          
+        const updated = res?.data || res;
 
-        addOffer({
-          id: created?._id || created?.id || Date.now().toString(),
-          title: created?.title || formData.title,
-          description: created?.description ?? formData.description,
-          discount: created?.discount ?? formData.discount,
-          validFrom: created?.validFrom || formData.validFrom,
-          validTo: created?.validTo || formData.validTo,
-          applicableCategories: created?.applicableCategories || formData.applicableCategories,
-          isActive: created?.isActive ?? formData.isActive,
-        });
+        if (isEdit) {
+          updateOffer({
+            id: updated?._id || updated?.id || initialData!.id,
+            title: updated?.title || formData.title,
+            description: updated?.description ?? formData.description,
+            discount: updated?.discount ?? formData.discount,
+            validFrom: updated?.validFrom || formData.validFrom,
+            validTo: updated?.validTo || formData.validTo,
+            applicableCategories: updated?.applicableCategories || formData.applicableCategories,
+            isActive: updated?.isActive ?? formData.isActive,
+          });
+          toast.success('Offer updated successfully');
+        } else {
+          addOffer({
+            id: updated?._id || updated?.id || Date.now().toString(),
+            title: updated?.title || formData.title,
+            description: updated?.description ?? formData.description,
+            discount: updated?.discount ?? formData.discount,
+            validFrom: updated?.validFrom || formData.validFrom,
+            validTo: updated?.validTo || formData.validTo,
+            applicableCategories: updated?.applicableCategories || formData.applicableCategories,
+            isActive: updated?.isActive ?? formData.isActive,
+          });
+          toast.success('Offer created successfully and saved to server');
+        }
 
-        setFormData({
-          id: '',
-          title: '',
-          description: '',
-          discount: 0,
-          validFrom: '',
-          validTo: '',
-          applicableCategories: [],
-          isActive: true,
-        });
         onClose();
-        toast.success('Offer created successfully and saved to server');
       } catch (error: any) {
-        console.error('Failed to create offer', error);
-        toast.error(error?.message || 'Failed to create offer');
+        console.error('Failed to save offer', error);
+        toast.error(error?.message || `Failed to ${initialData ? 'update' : 'create'} offer`);
       }
     } else {
       toast.error('Please fill all required fields');
@@ -92,7 +101,7 @@ export default function AddOfferForm({ onClose }: Props) {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <div className="sticky top-0 bg-[#6B8E23] text-white p-6 flex justify-between items-center">
-          <h2 className="text-2xl font-bold">Create New Offer</h2>
+          <h2 className="text-2xl font-bold">{initialData ? 'Edit Offer' : 'Create New Offer'}</h2>
           <button onClick={onClose} className="hover:bg-[#5B7A1E] p-2 rounded transition">
             <X className="w-6 h-6" />
           </button>
@@ -203,7 +212,7 @@ export default function AddOfferForm({ onClose }: Props) {
               type="submit"
               className="flex-1 bg-[#6B8E23] text-white py-2 rounded-lg hover:bg-[#5B7A1E] transition font-semibold"
             >
-              Create Offer
+              {initialData ? 'Update Offer' : 'Create Offer'}
             </button>
             <button
               type="button"
@@ -215,6 +224,12 @@ export default function AddOfferForm({ onClose }: Props) {
           </div>
         </form>
       </div>
+      {editingOffer && (
+        <AddOfferForm
+          initialData={editingOffer}
+          onClose={() => setEditingOffer(null)}
+        />
+      )}
     </div>
   );
 }

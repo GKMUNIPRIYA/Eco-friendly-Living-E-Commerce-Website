@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
-import { useAdmin } from '../../context/AdminContext';
+import { useAdmin, BlogPost } from '../../context/AdminContext';
 import { blogsAPI } from '../../services/api';
 import { Edit2, Trash2, CheckCircle, Clock, Video, Image } from 'lucide-react';
 import { toast } from 'sonner';
+import AddBlogForm from './AddBlogForm';
 
 export default function BlogManagement() {
   const { blogPosts, deleteBlogPost } = useAdmin();
+  const [editingBlog, setEditingBlog] = useState<BlogPost | null>(null);
 
   const handleDelete = async (id: string) => {
     if (!confirm('Delete this blog post?')) return;
@@ -93,7 +95,13 @@ export default function BlogManagement() {
             </div>
           </div>
           <div className="flex flex-col gap-2 flex-shrink-0">
-
+            <button
+              onClick={() => setEditingBlog(blog)}
+              className="p-2.5 text-blue-600 hover:bg-blue-50 rounded-lg transition"
+              title="Edit blog"
+            >
+              <Edit2 className="w-5 h-5" />
+            </button>
             <button
               onClick={() => handleDelete(blog.id)}
               className="p-2.5 text-red-600 hover:bg-red-50 rounded-lg transition"
@@ -141,6 +149,13 @@ export default function BlogManagement() {
         <div className="bg-white rounded-lg shadow p-12 text-center">
           <p className="text-gray-600 text-lg">No blog posts yet!</p>
         </div>
+      )}
+
+      {editingBlog && (
+        <AddBlogForm
+          initialData={editingBlog}
+          onClose={() => setEditingBlog(null)}
+        />
       )}
     </div>
   );

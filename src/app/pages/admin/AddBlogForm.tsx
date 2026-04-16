@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 
 interface Props {
   onClose: () => void;
+  initialData?: BlogPost;
 }
 
 const BLOG_CATEGORIES = [
@@ -20,9 +21,9 @@ const BLOG_CATEGORIES = [
   'Renewable Energy',
 ];
 
-export default function AddBlogForm({ onClose }: Props) {
-  const { addBlogPost } = useAdmin();
-  const [formData, setFormData] = useState<BlogPost>({
+export default function AddBlogForm({ onClose, initialData }: Props) {
+  const { addBlogPost, updateBlogPost } = useAdmin();
+  const [formData, setFormData] = useState<BlogPost>(initialData || {
     id: '',
     title: '',
     description: '',
@@ -125,55 +126,46 @@ export default function AddBlogForm({ onClose }: Props) {
     if (videoFile) fd.append('video', videoFile);
     if (thumbnailFile) fd.append('thumbnail', thumbnailFile);
 
-    blogsAPI
-      .create(fd)
+    const isEdit = !!initialData;
+    const request = isEdit ? blogsAPI.update(initialData!.id, fd) : blogsAPI.create(fd);
+
+    request
       .then((res: any) => {
         if (res.success) {
-          const created = res.data;
-          addBlogPost({
-            id: created._id || created.id || Date.now().toString(),
-            title: created.title,
-            description: created.description,
-            excerpt: created.excerpt,
-            content: created.content,
-            category: created.category,
-            readingTime: created.readingTime,
-            tags: created.tags,
-            author: created.author,
-            videoUrl: created.videoUrl,
-            thumbnailImage: created.thumbnailImage,
-            scheduledDate: created.scheduledDate || '',
-            publishedDate: created.publishedDate,
-            isPublished: !!created.isPublished,
-            isScheduled: !!created.isScheduled,
-            createdAt: created.createdAt,
-          });
-          setFormData({
-            id: '',
-            title: '',
-            description: '',
-            excerpt: '',
-            content: '',
-            category: 'General',
-            readingTime: 1,
-            tags: [],
-            author: '',
-            scheduledDate: '',
-            isPublished: false,
-            isScheduled: false,
-            createdAt: new Date().toISOString(),
-          });
-          setVideoFile(null);
-          setThumbnailFile(null);
-          setTagsInput('');
+          const updated = res.data;
+          const blogData: BlogPost = {
+            id: updated._id || updated.id || (isEdit ? initialData!.id : Date.now().toString()),
+            title: updated.title,
+            description: updated.description,
+            excerpt: updated.excerpt,
+            content: updated.content,
+            category: updated.category,
+            readingTime: updated.readingTime,
+            tags: updated.tags,
+            author: updated.author,
+            videoUrl: updated.videoUrl,
+            thumbnailImage: updated.thumbnailImage,
+            scheduledDate: updated.scheduledDate || '',
+            publishedDate: updated.publishedDate,
+            isPublished: !!updated.isPublished,
+            isScheduled: !!updated.isScheduled,
+            createdAt: updated.createdAt,
+          };
+
+          if (isEdit) {
+            updateBlogPost(blogData);
+            toast.success('Blog updated successfully!');
+          } else {
+            addBlogPost(blogData);
+            toast.success(updated.isScheduled ? 'Blog scheduled successfully!' : 'Blog published successfully!');
+          }
           onClose();
-          toast.success(created.isScheduled ? 'Blog scheduled successfully!' : 'Blog published successfully!');
         } else {
-          toast.error('Failed to create blog post');
+          toast.error(`Failed to ${isEdit ? 'update' : 'create'} blog post`);
         }
       })
       .catch((err: any) => {
-        toast.error('Blog upload failed: ' + (err?.message || 'Unknown error'));
+        toast.error('Blog save failed: ' + (err?.message || 'Unknown error'));
       });
   };
 
@@ -181,7 +173,7 @@ export default function AddBlogForm({ onClose }: Props) {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <div className="sticky top-0 bg-[#6B8E23] text-white p-6 flex justify-between items-center z-10">
-          <h2 className="text-2xl font-bold">Create New Blog Post</h2>
+          <h2 className="text-2xl font-bold">{initialData ? 'Edit Blog Post' : 'Create New Blog Post'}</h2>
           <button onClick={onClose} className="hover:bg-[#5B7A1E] p-2 rounded transition">
             <X className="w-6 h-6" />
           </button>
@@ -401,7 +393,7 @@ export default function AddBlogForm({ onClose }: Props) {
               type="submit"
               className="flex-1 bg-[#6B8E23] text-white py-2 rounded-lg hover:bg-[#5B7A1E] transition font-semibold"
             >
-              {formData.isPublished ? 'Publish Blog' : formData.isScheduled ? 'Schedule Blog' : 'Create Blog'}
+              {initialData ? 'Update Blog' : (formData.isPublished ? 'Publish Blog' : formData.isScheduled ? 'Schedule Blog' : 'Create Blog')}
             </button>
             <button
               type="button"

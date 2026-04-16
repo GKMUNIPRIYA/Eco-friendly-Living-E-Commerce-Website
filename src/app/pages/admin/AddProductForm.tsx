@@ -6,11 +6,12 @@ import { toast } from 'sonner';
 
 interface Props {
   onClose: () => void;
+  initialData?: AdminProduct;
 }
 
-export default function AddProductForm({ onClose }: Props) {
-  const { addAdminProduct } = useAdmin();
-  const [formData, setFormData] = useState<AdminProduct>({
+export default function AddProductForm({ onClose, initialData }: Props) {
+  const { addAdminProduct, updateAdminProduct } = useAdmin();
+  const [formData, setFormData] = useState<AdminProduct>(initialData || {
     id: '',
     name: '',
     price: 0,
@@ -79,33 +80,44 @@ export default function AddProductForm({ onClose }: Props) {
 
       const adminToken = localStorage.getItem('adminToken') || '';
       const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
-      const res = await fetch(`${API_BASE}/products`, {
-        method: 'POST',
+      
+      const res = await fetch(`${API_BASE}/products${initialData ? `/${initialData.id}` : ''}`, {
+        method: initialData ? 'PUT' : 'POST',
         headers: { ...(adminToken && { Authorization: `Bearer ${adminToken}` }) },
         body: fd,
       });
       const json = await res.json();
-      if (!json.success) throw new Error(json.error?.message || 'Failed to add product');
-      const created = json.data || json;
+      if (!json.success) throw new Error(json.error?.message || `Failed to ${initialData ? 'update' : 'add'} product`);
+      const updated = json.data || json;
 
-      addAdminProduct({
-        id: created?._id || created?.id || Date.now().toString(),
-        name: created?.name || formData.name,
-        price: created?.price ?? formData.price,
-        image: created?.image || formData.image,
-        images: created?.images || [],
-        category: created?.category || formData.category,
-        description: created?.description ?? formData.description,
-      });
+      if (initialData) {
+        updateAdminProduct({
+          id: updated?._id || updated?.id || initialData.id,
+          name: updated?.name || formData.name,
+          price: updated?.price ?? formData.price,
+          image: updated?.image || formData.image,
+          images: updated?.images || [],
+          category: updated?.category || formData.category,
+          description: updated?.description ?? formData.description,
+        });
+        toast.success('Product updated successfully!');
+      } else {
+        addAdminProduct({
+          id: updated?._id || updated?.id || Date.now().toString(),
+          name: updated?.name || formData.name,
+          price: updated?.price ?? formData.price,
+          image: updated?.image || formData.image,
+          images: updated?.images || [],
+          category: updated?.category || formData.category,
+          description: updated?.description ?? formData.description,
+        });
+        toast.success('Product added successfully!');
+      }
 
-      setFormData({ id: '', name: '', price: 0, image: '', category: '', description: '' });
-      setImageFiles([null]);
-      setImageCount(1);
       onClose();
-      toast.success('Product added successfully!');
     } catch (error: any) {
-      console.error('Failed to create product', error);
-      toast.error(error?.message || 'Failed to add product');
+      console.error('Failed to save product', error);
+      toast.error(error?.message || `Failed to ${initialData ? 'update' : 'add'} product`);
     } finally {
       setLoading(false);
     }
@@ -116,7 +128,7 @@ export default function AddProductForm({ onClose }: Props) {
       <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] flex flex-col">
         {/* Fixed Header - does NOT scroll with content */}
         <div className="bg-[#6B8E23] text-white p-6 flex justify-between items-center rounded-t-lg flex-shrink-0">
-          <h2 className="text-2xl font-bold">Add New Product</h2>
+          <h2 className="text-2xl font-bold">{initialData ? 'Edit Product' : 'Add New Product'}</h2>
           <button onClick={onClose} className="hover:bg-[#5B7A1E] p-2 rounded transition">
             <X className="w-6 h-6" />
           </button>
@@ -263,7 +275,7 @@ export default function AddProductForm({ onClose }: Props) {
               disabled={loading}
               className="flex-1 bg-[#6B8E23] text-white py-2 rounded-lg hover:bg-[#5B7A1E] transition font-semibold disabled:opacity-60"
             >
-              {loading ? 'Adding...' : 'Add Product'}
+              {loading ? (initialData ? 'Updating...' : 'Adding...') : (initialData ? 'Update Product' : 'Add Product')}
             </button>
             <button
               type="button"

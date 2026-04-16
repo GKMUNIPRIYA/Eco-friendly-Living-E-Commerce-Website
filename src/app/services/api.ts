@@ -10,7 +10,9 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api'
 
 // Helper function to get auth token (user/customer)
 function getAuthToken(): string {
-  return localStorage.getItem('authToken') || localStorage.getItem('adminToken') || '';
+  // Prioritize authToken for user context, but avoid adminToken if possible 
+  // to prevent accidental profile mesh.
+  return localStorage.getItem('authToken') || '';
 }
 
 // Helper for admin-only requests (keeps admin session separate from user)
@@ -118,6 +120,24 @@ export const authAPI = {
 
   resendVerification: (email: string) =>
     fetchAPI('/auth/resend-verification', { method: 'POST', body: JSON.stringify({ email }) }),
+
+  // Admin-specific profile calls to prevent session overlap
+  getAdminProfile: () =>
+    fetchAPI('/auth/profile', { method: 'GET', useAdminToken: true }),
+
+  updateAdminProfile: (data: any) =>
+    fetchAPI('/auth/profile', { method: 'PUT', body: JSON.stringify(data), useAdminToken: true }),
+
+  updateAdminProfileImage: (formData: FormData) => {
+    const token = localStorage.getItem('adminToken');
+    return fetch(`${API_BASE_URL}/auth/profile/image`, {
+      method: 'POST',
+      headers: {
+        ...(token && { Authorization: `Bearer ${token}` }),
+      },
+      body: formData,
+    }).then(r => r.json());
+  },
 };
 
 // ==================== PRODUCTS API ====================

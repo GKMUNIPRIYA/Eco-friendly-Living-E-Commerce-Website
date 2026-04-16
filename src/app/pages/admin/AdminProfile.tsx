@@ -34,7 +34,7 @@ export default function AdminProfile() {
   }
 
   useEffect(() => {
-    authAPI.getProfile().then((res: any) => {
+    authAPI.getAdminProfile().then((res: any) => {
       if (res?.success && res.data) {
         const d = res.data;
         setFormData({
@@ -54,7 +54,7 @@ export default function AdminProfile() {
   const handleSave = async () => {
     setLoading(true);
     try {
-      await authAPI.updateProfile(formData);
+      await authAPI.updateAdminProfile(formData);
 
       localStorage.setItem('adminUser', JSON.stringify({ ...adminUser, ...formData }));
       toast.success('Profile updated successfully!');
@@ -77,7 +77,11 @@ export default function AdminProfile() {
     }
     setLoading(true);
     try {
-      await authAPI.updateProfile({ currentPassword, password: newPassword } as any);
+      // Backend usually expects 'currentPassword' and 'newPassword'
+      await authAPI.updateAdminProfile({ 
+        currentPassword, 
+        newPassword 
+      });
 
       toast.success('Password changed successfully!');
       setChangingPassword(false);
@@ -138,7 +142,7 @@ export default function AdminProfile() {
                       
                       setLoading(true);
                       try {
-                        const res = await authAPI.updateProfileImage(uploadFormData);
+                        const res = await authAPI.updateAdminProfileImage(uploadFormData);
                         if (res.success && res.data?.profileImage) {
                           const newImageUrl = res.data.profileImage;
                           const updatedUser = { ...adminUser, profileImage: newImageUrl };
