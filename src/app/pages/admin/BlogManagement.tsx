@@ -41,15 +41,15 @@ export default function BlogManagement() {
     }, [blog.id]);
 
     return (
-      <div className="bg-white rounded-lg shadow hover:shadow-lg transition p-6 mb-4">
-        <div className="flex gap-4">
+      <div className="bg-white rounded-lg shadow hover:shadow-lg transition p-4 md:p-6 mb-4">
+        <div className="flex flex-col sm:flex-row gap-4">
           {/* Thumbnail */}
           {blog.thumbnailImage && (
-            <div className="flex-shrink-0">
+            <div className="w-full sm:w-24 flex-shrink-0">
               <img
                 src={blog.thumbnailImage}
                 alt={blog.title}
-                className="w-24 h-24 object-cover rounded-lg"
+                className="w-full h-48 sm:h-24 object-cover rounded-lg"
               />
             </div>
           )}

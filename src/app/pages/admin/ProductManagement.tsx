@@ -16,13 +16,12 @@ export default function ProductManagement() {
   return (
     <div className="grid gap-6">
       {adminProducts.map((product) => (
-        <div key={product.id} className="bg-white rounded-lg shadow hover:shadow-lg transition p-6">
-          <div className="flex gap-6">
+        <div key={product.id} className="bg-white rounded-lg shadow hover:shadow-lg transition p-4 md:p-6">
+          <div className="flex flex-col sm:flex-row gap-4 md:gap-6">
             <img
               src={toFullUrl(product.image)}
               alt={product.name}
-              className="w-32 h-32 object-cover rounded-lg"
-              
+              className="w-full sm:w-32 h-48 sm:h-32 object-cover rounded-lg"
             />
             <div className="flex-1">
               <h3 className="text-xl font-bold text-[#5B6F1E] mb-2">{product.name}</h3>
@@ -34,7 +33,7 @@ export default function ProductManagement() {
                 </span>
               </div>
             </div>
-            <div className="flex gap-2">
+            <div className="flex sm:flex-col gap-2 border-t sm:border-t-0 pt-4 sm:pt-0">
               <button className="p-3 text-blue-600 hover:bg-blue-50 rounded-lg transition" title="Edit product">
                 <Edit2 className="w-5 h-5" />
               </button>
