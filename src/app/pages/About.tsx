@@ -5,16 +5,20 @@ import { ImageWithFallback } from "../components/UIUX/ImageWithFallback";
 export default function About() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#f8faf5' }}>
-      {/* Hero Section - Clean Eco Gradient */}
-      <div className="relative py-20 bg-gradient-to-br from-[#556B2F] via-[#6B8E23] to-[#8FBC5A] overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/leaf.png')] opacity-20" />
-        </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4">
-          <h1 className="text-5xl font-bold text-white mb-4 drop-shadow-md">About TerraKind</h1>
-          <p className="text-white/90 text-xl font-medium drop-shadow-sm">
-            Caring for Earth, One Choice at a Time
-          </p>
+      {/* Hero Section */}
+      <div className="relative h-96 overflow-hidden">
+        <ImageWithFallback
+          src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1600&auto=format&fit=crop"
+          alt="About TerraKind - sustainable living"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+          <div className="max-w-7xl mx-auto px-4 pb-16 w-full">
+            <h1 className="text-5xl font-bold text-white mb-4">About TerraKind</h1>
+            <p className="text-white text-xl">
+              Caring for Earth, One Choice at a Time
+            </p>
+          </div>
         </div>
       </div>
 

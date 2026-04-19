@@ -7,56 +7,56 @@ export const categories = [
     id: 'personal-care',
     name: 'Personal Care',
     parent: 'health-beauty',
-    image: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&q=80&w=1600',
+    image: '/images-bg-submenu/period-products.png',
     subtitle: 'Nourish yourself with nature’s finest ingredients.'
   },
   {
     id: 'period-products',
     name: 'Period Products',
     parent: 'health-beauty',
-    image: 'https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&q=80&w=1600',
+    image: '/images-bg-submenu/personal-care.png',
     subtitle: 'Sustainable care for your most comfortable cycle.'
   },
   {
     id: 'soap-bars',
     name: 'Zero Waste Soap Bars',
     parent: 'health-beauty',
-    image: 'https://images.unsplash.com/photo-1600857062241-98e5dba7f214?auto=format&fit=crop&q=80&w=1600',
+    image: '/images-bg-submenu/soap-bars.png',
     subtitle: 'Handcrafted goodness, zero plastic waste.'
   },
   {
     id: 'bath-body',
     name: 'Bath & Body',
     parent: 'health-beauty',
-    image: 'https://images.unsplash.com/photo-1559599101-f09722fb4948?auto=format&fit=crop&q=80&w=1600',
+    image: '/images-bg-submenu/bath-body.png',
     subtitle: 'Transform your daily routine into a spa retreat.'
   },
   {
     id: 'hair-care',
     name: 'Hair Care',
     parent: 'health-beauty',
-    image: 'https://images.unsplash.com/photo-1522337660859-026998781a5c?auto=format&fit=crop&q=80&w=1600',
+    image: '/images-bg-submenu/hair-care.png',
     subtitle: 'Naturally vibrant hair starts with sustainable care.'
   },
   {
     id: 'face',
     name: 'Face',
     parent: 'health-beauty',
-    image: 'https://images.unsplash.com/photo-1590156221122-c7b14c034110?auto=format&fit=crop&q=80&w=1600',
+    image: '/images-bg-submenu/face.png',
     subtitle: 'Glow with confidence, powered by the Earth.'
   },
   {
     id: 'essential-oils',
     name: 'Essential Oils',
     parent: 'health-beauty',
-    image: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=1600',
+    image: '/images-bg-submenu/essential-oils.png',
     subtitle: 'Pure botanical essences for your mind and soul.'
   },
   {
     id: 'cleaners',
     name: 'Cleaners',
     parent: 'home-living',
-    image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=1600',
+    image: '/images-bg-submenu/cleaners.png',
     subtitle: 'Tough on dirt, gentle on the planet.'
   },
   {
@@ -70,7 +70,7 @@ export const categories = [
     id: 'kitchen',
     name: 'Kitchen',
     parent: 'home-living',
-    image: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&q=80&w=1600',
+    image: '/images-bg-submenu/kitchen.png',
     subtitle: 'Cook with love and a green conscience.'
   },
   {
@@ -119,7 +119,7 @@ export const categories = [
     id: 'zero-waste-gifts',
     name: 'Zero Waste Gifts',
     parent: 'everyday-gifting',
-    image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=80&w=1600',
+    image: '/images-bg-submenu/zero-waste-gifts.png',
     subtitle: 'Thoughtful gifting that gives back to nature.'
   },
   {

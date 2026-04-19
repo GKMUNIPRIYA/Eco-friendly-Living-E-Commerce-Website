@@ -25,6 +25,13 @@ export function Header() {
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [healthBeautyBg, setHealthBeautyBg] = useState('/menu-images/health-beauty.png');
+  const [homeLivingBg, setHomeLivingBg] = useState('/menu-images/home-living.png');
+  const [giftingBg, setGiftingBg] = useState('/menu-images/everyday-gifting.png');
+
+  const DEFAULT_HEALTH_BEAUTY_BG = '/menu-images/health-beauty.png';
+  const DEFAULT_HOME_LIVING_BG = '/menu-images/home-living.png';
+  const DEFAULT_GIFTING_BG = '/menu-images/everyday-gifting.png';
 
   const handleLogout = () => {
     logout();
@@ -149,22 +156,32 @@ export function Header() {
               {showProductsMenu && (
                 <div className="absolute left-0 top-full mt-2 w-screen max-w-5xl bg-white shadow-2xl rounded-lg p-8 -ml-32 z-[60]">
                   <div className="grid grid-cols-4 gap-4">
-                    {/* Health & Beauty */}
-                    <div className="relative group overflow-hidden rounded-xl p-6 transition-all duration-500 hover:shadow-lg border border-gray-100 hover:border-[#6B8E23]/20 bg-gray-50/50">
+                    {/* Health & Beauty */                    <div 
+                      className="relative group overflow-hidden rounded-xl p-6 transition-all duration-500 hover:shadow-lg"
+                      onMouseLeave={() => setHealthBeautyBg(DEFAULT_HEALTH_BEAUTY_BG)}
+                    >
+                      <div
+                        className="absolute inset-0 z-0 bg-cover bg-center transition-all duration-700 group-hover:scale-110"
+                        style={{ backgroundImage: `url("${healthBeautyBg}")`, opacity: 0.15 }}
+                      />
                       <div className="relative z-10">
                         <h3 className="font-bold text-[#6B8E23] mb-4 text-lg">Health & Beauty</h3>
                         <ul className="space-y-2">
                           {[
-                            { to: '/category/personal-care', label: 'Personal Care' },
-                            { to: '/category/period-products', label: 'Period Products' },
-                            { to: '/category/soap-bars', label: 'Zero Waste Soap Bars' },
-                            { to: '/category/bath-body', label: 'Bath & Body' },
-                            { to: '/category/hair-care', label: 'Hair Care' },
-                            { to: '/category/face', label: 'Face' },
-                            { to: '/category/essential-oils', label: 'Essential Oils' },
+                            { to: '/category/personal-care', label: 'Personal Care', slug: 'personal-care' },
+                            { to: '/category/period-products', label: 'Period Products', slug: 'period-products' },
+                            { to: '/category/soap-bars', label: 'Zero Waste Soap Bars', slug: 'soap-bars' },
+                            { to: '/category/bath-body', label: 'Bath & Body', slug: 'bath-body' },
+                            { to: '/category/hair-care', label: 'Hair Care', slug: 'hair-care' },
+                            { to: '/category/face', label: 'Face', slug: 'face' },
+                            { to: '/category/essential-oils', label: 'Essential Oils', slug: 'essential-oils' },
                           ].map(item => (
                             <li key={item.to}>
-                              <Link to={item.to} className="text-gray-700 hover:text-[#6B8E23] transition-colors block text-sm">
+                              <Link 
+                                to={item.to} 
+                                className="text-gray-700 hover:text-[#6B8E23] transition-colors block text-sm"
+                                onMouseEnter={() => setHealthBeautyBg(`/images-bg-submenu/${item.slug}.png`)}
+                              >
                                 {item.label}
                               </Link>
                             </li>
@@ -172,25 +189,36 @@ export function Header() {
                         </ul>
                       </div>
                     </div>
+>
 
-                    {/* Home & Living */}
-                    <div className="relative group overflow-hidden rounded-xl p-6 transition-all duration-500 hover:shadow-lg border border-gray-100 hover:border-[#6B8E23]/20 bg-gray-50/50">
+                    <div 
+                      className="relative group overflow-hidden rounded-xl p-6 transition-all duration-500 hover:shadow-lg"
+                      onMouseLeave={() => setHomeLivingBg(DEFAULT_HOME__LIVING_BG)}
+                    >
+                      <div
+                        className="absolute inset-0 z-0 bg-cover bg-center transition-all duration-700 group-hover:scale-110"
+                        style={{ backgroundImage: `url("${homeLivingBg}")`, opacity: 0.15 }}
+                      />
                       <div className="relative z-10">
                         <h3 className="font-bold text-[#6B8E23] mb-4 text-lg">Home & Living</h3>
                         <ul className="space-y-2">
                           {[
-                            { to: '/category/cleaners', label: 'Cleaners' },
-                            { to: '/category/bathroom', label: 'Bathroom' },
-                            { to: '/category/kitchen', label: 'Kitchen' },
-                            { to: '/category/travel', label: 'Travel' },
-                            { to: '/category/home-composting', label: 'Home Composting' },
-                            { to: '/category/stationery', label: 'Stationery' },
-                            { to: '/category/candles-aroma', label: 'Candles & Aroma' },
-                            { to: '/category/pet-care', label: 'Pet Care' },
-                            { to: '/category/reusable-bags', label: 'Reusable Bags' },
+                            { to: '/category/cleaners', label: 'Cleaners', slug: 'cleaners' },
+                            { to: '/category/bathroom', label: 'Bathroom', slug: 'bathroom' },
+                            { to: '/category/kitchen', label: 'Kitchen', slug: 'kitchen' },
+                            { to: '/category/travel', label: 'Travel', slug: 'travel' },
+                            { to: '/category/home-composting', label: 'Home Composting', slug: 'home-composting' },
+                            { to: '/category/stationery', label: 'Stationery', slug: 'stationery' },
+                            { to: '/category/candles-aroma', label: 'Candles & Aroma', slug: 'candles-aroma' },
+                            { to: '/category/pet-care', label: 'Pet Care', slug: 'pet-care' },
+                            { to: '/category/reusable-bags', label: 'Reusable Bags', slug: 'reusable-bags' },
                           ].map(item => (
                             <li key={item.to}>
-                              <Link to={item.to} className="text-gray-700 hover:text-[#6B8E23] transition-colors block text-sm">
+                              <Link 
+                                to={item.to} 
+                                className="text-gray-700 hover:text-[#6B8E23] transition-colors block text-sm"
+                                onMouseEnter={() => setHomeLivingBg(`/images-bg-submenu/${item.slug}.png`)}
+                              >
                                 {item.label}
                               </Link>
                             </li>
@@ -199,18 +227,28 @@ export function Header() {
                       </div>
                     </div>
 
-                    {/* Gifting & More */}
-                    <div className="relative group overflow-hidden rounded-xl p-6 transition-all duration-500 hover:shadow-lg border border-gray-100 hover:border-[#6B8E23]/20 bg-gray-50/50">
+                    <div 
+                      className="relative group overflow-hidden rounded-xl p-6 transition-all duration-500 hover:shadow-lg"
+                      onMouseLeave={() => setGiftingBg(DEFAULT_GIFTING_BG)}
+                    >
+                      <div
+                        className="absolute inset-0 z-0 bg-cover bg-center transition-all duration-700 group-hover:scale-110"
+                        style={{ backgroundImage: `url("${giftingBg}")`, opacity: 0.15 }}
+                      />
                       <div className="relative z-10">
                         <h3 className="font-bold text-[#6B8E23] mb-4 text-lg">Everyday Gifting</h3>
                         <ul className="space-y-2">
                           {[
-                            { to: '/category/zero-waste-gifts', label: 'Zero Waste Gifts' },
-                            { to: '/category/womens-day', label: "Women's Day" },
-                            { to: '/category/anniversary', label: 'Anniversary' },
+                            { to: '/category/zero-waste-gifts', label: 'Zero Waste Gifts', slug: 'zero-waste-gifts' },
+                            { to: '/category/womens-day', label: "Women's Day", slug: 'womens-day' },
+                            { to: '/category/anniversary', label: 'Anniversary', slug: 'anniversary' },
                           ].map(item => (
                             <li key={item.to}>
-                              <Link to={item.to} className="text-gray-700 hover:text-[#6B8E23] transition-colors block text-sm">
+                              <Link 
+                                to={item.to} 
+                                className="text-gray-700 hover:text-[#6B8E23] transition-colors block text-sm"
+                                onMouseEnter={() => setGiftingBg(`/images-bg-submenu/${item.slug}.png`)}
+                              >
                                 {item.label}
                               </Link>
                             </li>
@@ -219,7 +257,11 @@ export function Header() {
                         <h3 className="font-bold text-[#6B8E23] mb-4 mt-6 text-lg">Corporate</h3>
                         <ul className="space-y-2">
                           <li>
-                            <Link to="/category/corporate-gifting" className="text-gray-700 hover:text-[#6B8E23] transition-colors block text-sm">
+                            <Link 
+                              to="/category/corporate-gifting" 
+                              className="text-gray-700 hover:text-[#6B8E23] transition-colors block text-sm"
+                              onMouseEnter={() => setGiftingBg('/images-bg-submenu/corporate-gifting.png')}
+                            >
                               Corporate Gifting
                             </Link>
                           </li>
@@ -228,7 +270,11 @@ export function Header() {
                     </div>
 
                     {/* Shop by Brand */}
-                    <div className="relative group overflow-hidden rounded-xl p-6 transition-all duration-500 hover:shadow-lg border border-gray-100 hover:border-[#6B8E23]/20 bg-gray-50/50">
+                    <div className="relative group overflow-hidden rounded-xl p-6 transition-all duration-500 hover:shadow-lg">
+                      <div
+                        className="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                        style={{ backgroundImage: 'url("/menu-images/shop-brands.png")', opacity: 0.15 }}
+                      />
                       <div className="relative z-10 overflow-y-auto max-h-[400px]">
                         <h3 className="font-bold text-[#6B8E23] mb-4 text-lg sticky top-0 bg-white/80 backdrop-blur-sm py-1">Shop by Brand</h3>
                         <ul className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm italic">
