@@ -104,18 +104,24 @@ export default function Category() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Category Header - Clean Eco Gradient */}
-      <div className="relative py-20 md:py-28 w-full overflow-hidden bg-gradient-to-br from-[#556B2F] via-[#6B8E23] to-[#8FBC5A]">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/leaf.png')] opacity-30" />
-        </div>
-        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight drop-shadow-lg">
-            {category.name}
-          </h1>
-          <p className="text-lg md:text-xl text-white/90 font-medium max-w-2xl mx-auto drop-shadow-md leading-relaxed">
-            {(category as any).subtitle || `Premium sustainable essentials for your ${category.name.toLowerCase()} lifestyle.`}
-          </p>
+      {/* Category Header - Dynamic Category Image */}
+      <div className="relative h-[50vh] min-h-[350px] w-full overflow-hidden">
+        <ImageWithFallback
+          src={category.image}
+          alt={category.name}
+          className="w-full h-full object-cover object-center transform transition-transform duration-700 hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+        <div className="absolute inset-0 flex items-center justify-center text-center">
+          <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 tracking-tight drop-shadow-2xl">
+              {category.name}
+            </h1>
+            <p className="text-xl md:text-2xl text-white/95 font-medium max-w-2xl mx-auto drop-shadow-lg leading-relaxed">
+              {(category as any).subtitle || `Discover our collection of premium ${category.name.toLowerCase()} essentials.`}
+            </p>
+          </div>
         </div>
       </div>
 
