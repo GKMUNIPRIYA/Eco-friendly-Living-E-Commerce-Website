@@ -4,6 +4,7 @@ import { Calendar, User, Clock, ArrowLeft, Heart, Share2, Tag } from 'lucide-rea
 import { blogsAPI } from '../services/api';
 import { toast } from 'sonner';
 import { ImageWithFallback } from '../components/UIUX/ImageWithFallback';
+import { toFullUrl } from '../utils/imageUrl';
 
 interface BlogData {
     _id: string;
