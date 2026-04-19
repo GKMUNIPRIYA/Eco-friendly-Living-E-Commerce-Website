@@ -43,13 +43,11 @@ export default function Home() {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section
-        className="relative text-white py-12 md:py-24"
-        style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1600&auto=format&fit=crop')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
+        className="relative text-white py-16 md:py-32 bg-gradient-to-br from-[#556B2F] via-[#6B8E23] to-[#8FBC5A] overflow-hidden"
       >
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/leaf.png')] opacity-20" />
+        </div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#6B8E23]/90 to-[#8FBC5A]/80" />
         <div className="relative z-10 max-w-7xl mx-auto px-4">
           <div className="max-w-2xl">

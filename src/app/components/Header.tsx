@@ -150,11 +150,7 @@ export function Header() {
                 <div className="absolute left-0 top-full mt-2 w-screen max-w-5xl bg-white shadow-2xl rounded-lg p-8 -ml-32 z-[60]">
                   <div className="grid grid-cols-4 gap-4">
                     {/* Health & Beauty */}
-                    <div className="relative group overflow-hidden rounded-xl p-6 transition-all duration-500 hover:shadow-lg">
-                      <div
-                        className="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                        style={{ backgroundImage: 'url("/menu-images/health-beauty.png")', opacity: 0.15 }}
-                      />
+                    <div className="relative group overflow-hidden rounded-xl p-6 transition-all duration-500 hover:shadow-lg border border-gray-100 hover:border-[#6B8E23]/20 bg-gray-50/50">
                       <div className="relative z-10">
                         <h3 className="font-bold text-[#6B8E23] mb-4 text-lg">Health & Beauty</h3>
                         <ul className="space-y-2">
@@ -178,11 +174,7 @@ export function Header() {
                     </div>
 
                     {/* Home & Living */}
-                    <div className="relative group overflow-hidden rounded-xl p-6 transition-all duration-500 hover:shadow-lg">
-                      <div
-                        className="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                        style={{ backgroundImage: 'url("/menu-images/home-living.png")', opacity: 0.15 }}
-                      />
+                    <div className="relative group overflow-hidden rounded-xl p-6 transition-all duration-500 hover:shadow-lg border border-gray-100 hover:border-[#6B8E23]/20 bg-gray-50/50">
                       <div className="relative z-10">
                         <h3 className="font-bold text-[#6B8E23] mb-4 text-lg">Home & Living</h3>
                         <ul className="space-y-2">
@@ -208,11 +200,7 @@ export function Header() {
                     </div>
 
                     {/* Gifting & More */}
-                    <div className="relative group overflow-hidden rounded-xl p-6 transition-all duration-500 hover:shadow-lg">
-                      <div
-                        className="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                        style={{ backgroundImage: 'url("/menu-images/everyday-gifting.png")', opacity: 0.15 }}
-                      />
+                    <div className="relative group overflow-hidden rounded-xl p-6 transition-all duration-500 hover:shadow-lg border border-gray-100 hover:border-[#6B8E23]/20 bg-gray-50/50">
                       <div className="relative z-10">
                         <h3 className="font-bold text-[#6B8E23] mb-4 text-lg">Everyday Gifting</h3>
                         <ul className="space-y-2">
@@ -240,11 +228,7 @@ export function Header() {
                     </div>
 
                     {/* Shop by Brand */}
-                    <div className="relative group overflow-hidden rounded-xl p-6 transition-all duration-500 hover:shadow-lg">
-                      <div
-                        className="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                        style={{ backgroundImage: 'url("/menu-images/shop-brands.png")', opacity: 0.15 }}
-                      />
+                    <div className="relative group overflow-hidden rounded-xl p-6 transition-all duration-500 hover:shadow-lg border border-gray-100 hover:border-[#6B8E23]/20 bg-gray-50/50">
                       <div className="relative z-10 overflow-y-auto max-h-[400px]">
                         <h3 className="font-bold text-[#6B8E23] mb-4 text-lg sticky top-0 bg-white/80 backdrop-blur-sm py-1">Shop by Brand</h3>
                         <ul className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm italic">
