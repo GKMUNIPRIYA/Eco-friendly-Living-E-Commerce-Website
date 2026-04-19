@@ -5,10 +5,15 @@ export function ImageWithFallback(props: React.ImgHTMLAttributes<HTMLImageElemen
   const [error, setError] = useState(false)
 
   const getImageUrl = (url?: string) => {
-    if (!url) return 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=400';
+    if (!url) return 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1200';
     if (url.startsWith('http')) return url;
     
-    // Resolve relative backend paths
+    // If it's a local public asset, return it as is
+    if (url.startsWith('/images-bg-submenu') || url.startsWith('/menu-images') || url.startsWith('/brands')) {
+      return url;
+    }
+
+    // Resolve relative backend paths for products/blogs
     const API_BASE = (import.meta as any).env?.VITE_API_URL || 'http://localhost:3000/api';
     const cleanBase = API_BASE.replace('/api', '');
     return `${cleanBase}/${url.startsWith('/') ? url.slice(1) : url}`;

@@ -156,15 +156,25 @@ export function Header() {
               {showProductsMenu && (
                 <div className="absolute left-0 top-full mt-2 w-screen max-w-5xl bg-white shadow-2xl rounded-lg p-8 -ml-32 z-[60]">
                   <div className="grid grid-cols-4 gap-4">
-                    {/* Health & Beauty */                    <div 
+                    {/* Health & Beauty */}
+                    <div 
                       className="relative group overflow-hidden rounded-xl p-6 transition-all duration-500 hover:shadow-lg"
                       onMouseLeave={() => setHealthBeautyBg(DEFAULT_HEALTH_BEAUTY_BG)}
                     >
                       <div
-                        className="absolute inset-0 z-0 bg-cover bg-center transition-all duration-700 group-hover:scale-110"
-                        style={{ backgroundImage: `url("${healthBeautyBg}")`, opacity: 0.15 }}
+                        className="absolute inset-0 z-0 bg-cover bg-center transition-all duration-400 group-hover:scale-110"
+                        style={{ backgroundImage: `url("${healthBeautyBg}")`, opacity: 0.3 }}
                       />
                       <div className="relative z-10">
+                        {/* Column Banner */}
+                        <div className="h-32 w-full rounded-lg mb-4 overflow-hidden shadow-md border border-gray-100 transition-transform duration-500 group-hover:scale-[1.02]">
+                          <img 
+                            src={healthBeautyBg} 
+                            alt="Banner" 
+                            className="w-full h-full object-cover transition-opacity duration-300"
+                          />
+                        </div>
+                        
                         <h3 className="font-bold text-[#6B8E23] mb-4 text-lg">Health & Beauty</h3>
                         <ul className="space-y-2">
                           {[
@@ -179,7 +189,7 @@ export function Header() {
                             <li key={item.to}>
                               <Link 
                                 to={item.to} 
-                                className="text-gray-700 hover:text-[#6B8E23] transition-colors block text-sm"
+                                className="text-gray-700 hover:text-[#6B8E23] transition-colors block text-sm font-medium"
                                 onMouseEnter={() => setHealthBeautyBg(`/images-bg-submenu/${item.slug}.png`)}
                               >
                                 {item.label}
@@ -189,17 +199,25 @@ export function Header() {
                         </ul>
                       </div>
                     </div>
->
 
                     <div 
                       className="relative group overflow-hidden rounded-xl p-6 transition-all duration-500 hover:shadow-lg"
-                      onMouseLeave={() => setHomeLivingBg(DEFAULT_HOME__LIVING_BG)}
+                      onMouseLeave={() => setHomeLivingBg(DEFAULT_HOME_LIVING_BG)}
                     >
                       <div
-                        className="absolute inset-0 z-0 bg-cover bg-center transition-all duration-700 group-hover:scale-110"
-                        style={{ backgroundImage: `url("${homeLivingBg}")`, opacity: 0.15 }}
+                        className="absolute inset-0 z-0 bg-cover bg-center transition-all duration-400 group-hover:scale-110"
+                        style={{ backgroundImage: `url("${homeLivingBg}")`, opacity: 0.3 }}
                       />
                       <div className="relative z-10">
+                        {/* Column Banner */}
+                        <div className="h-32 w-full rounded-lg mb-4 overflow-hidden shadow-md border border-gray-100 transition-transform duration-500 group-hover:scale-[1.02]">
+                          <img 
+                            src={homeLivingBg} 
+                            alt="Banner" 
+                            className="w-full h-full object-cover transition-opacity duration-300"
+                          />
+                        </div>
+
                         <h3 className="font-bold text-[#6B8E23] mb-4 text-lg">Home & Living</h3>
                         <ul className="space-y-2">
                           {[
@@ -216,7 +234,7 @@ export function Header() {
                             <li key={item.to}>
                               <Link 
                                 to={item.to} 
-                                className="text-gray-700 hover:text-[#6B8E23] transition-colors block text-sm"
+                                className="text-gray-700 hover:text-[#6B8E23] transition-colors block text-sm font-medium"
                                 onMouseEnter={() => setHomeLivingBg(`/images-bg-submenu/${item.slug}.png`)}
                               >
                                 {item.label}
@@ -232,10 +250,19 @@ export function Header() {
                       onMouseLeave={() => setGiftingBg(DEFAULT_GIFTING_BG)}
                     >
                       <div
-                        className="absolute inset-0 z-0 bg-cover bg-center transition-all duration-700 group-hover:scale-110"
-                        style={{ backgroundImage: `url("${giftingBg}")`, opacity: 0.15 }}
+                        className="absolute inset-0 z-0 bg-cover bg-center transition-all duration-400 group-hover:scale-110"
+                        style={{ backgroundImage: `url("${giftingBg}")`, opacity: 0.3 }}
                       />
                       <div className="relative z-10">
+                        {/* Column Banner */}
+                        <div className="h-32 w-full rounded-lg mb-4 overflow-hidden shadow-md border border-gray-100 transition-transform duration-500 group-hover:scale-[1.02]">
+                          <img 
+                            src={giftingBg} 
+                            alt="Banner" 
+                            className="w-full h-full object-cover transition-opacity duration-300"
+                          />
+                        </div>
+
                         <h3 className="font-bold text-[#6B8E23] mb-4 text-lg">Everyday Gifting</h3>
                         <ul className="space-y-2">
                           {[
@@ -246,7 +273,7 @@ export function Header() {
                             <li key={item.to}>
                               <Link 
                                 to={item.to} 
-                                className="text-gray-700 hover:text-[#6B8E23] transition-colors block text-sm"
+                                className="text-gray-700 hover:text-[#6B8E23] transition-colors block text-sm font-medium"
                                 onMouseEnter={() => setGiftingBg(`/images-bg-submenu/${item.slug}.png`)}
                               >
                                 {item.label}
@@ -259,7 +286,7 @@ export function Header() {
                           <li>
                             <Link 
                               to="/category/corporate-gifting" 
-                              className="text-gray-700 hover:text-[#6B8E23] transition-colors block text-sm"
+                              className="text-gray-700 hover:text-[#6B8E23] transition-colors block text-sm font-medium"
                               onMouseEnter={() => setGiftingBg('/images-bg-submenu/corporate-gifting.png')}
                             >
                               Corporate Gifting

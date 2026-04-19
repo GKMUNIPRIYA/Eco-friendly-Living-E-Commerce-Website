@@ -7,14 +7,14 @@ export const categories = [
     id: 'personal-care',
     name: 'Personal Care',
     parent: 'health-beauty',
-    image: '/images-bg-submenu/period-products.png',
+    image: '/images-bg-submenu/personal-care.png',
     subtitle: 'Nourish yourself with nature’s finest ingredients.'
   },
   {
     id: 'period-products',
     name: 'Period Products',
     parent: 'health-beauty',
-    image: '/images-bg-submenu/personal-care.png',
+    image: '/images-bg-submenu/period-products.png',
     subtitle: 'Sustainable care for your most comfortable cycle.'
   },
   {
