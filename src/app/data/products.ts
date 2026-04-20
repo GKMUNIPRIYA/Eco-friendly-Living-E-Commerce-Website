@@ -143,6 +143,62 @@ export const categories = [
     image: '/images-bg-submenu/corporate-gifting.png',
     subtitle: 'Impress with purpose and planetary care.'
   },
+  {
+    id: 'green-feels',
+    name: 'Green Feels',
+    parent: 'root',
+    image: '/menu-images/brand-green-feels.png',
+    subtitle: 'Crafting harmony between nature and living.'
+  },
+  {
+    id: 'ecosys',
+    name: 'Ecosys',
+    parent: 'root',
+    image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=1920',
+    subtitle: 'Innovative solutions for a circular economy.'
+  },
+  {
+    id: 'myoneearth',
+    name: 'MyOneEarth',
+    parent: 'root',
+    image: '/menu-images/brand-myoneearth.png',
+    subtitle: 'One home, one planet, one conscious choice.'
+  },
+  {
+    id: 'beco',
+    name: 'Beco',
+    parent: 'root',
+    image: 'https://images.unsplash.com/photo-1585421514738-01798e348b17?auto=format&fit=crop&q=80&w=1920',
+    subtitle: 'Making sustainable living the new normal.'
+  },
+  {
+    id: 'wild-ideas',
+    name: 'Wild Ideas',
+    parent: 'root',
+    image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&q=80&w=1920',
+    subtitle: 'Rooted in rural empowerment and organic purity.'
+  },
+  {
+    id: 'dvaar',
+    name: 'Dvaar',
+    parent: 'root',
+    image: 'https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&q=80&w=1920',
+    subtitle: 'Your gateway to a mindful, eco-conscious lifestyle.'
+  },
+  {
+    id: 'saathi',
+    name: 'Saathi',
+    parent: 'root',
+    image: 'https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&q=80&w=1920',
+    subtitle: 'Dignity and sustainability in every pad.'
+  },
+  {
+    id: 'thenga',
+    name: 'Thenga',
+    parent: 'root',
+    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80&w=1920',
+    subtitle: 'Traditional roots, modern sustainable vessels.'
+  },
 ];
 
 export const brands = [
