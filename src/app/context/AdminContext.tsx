@@ -19,6 +19,7 @@ export interface Offer {
   validFrom: string;
   validTo: string;
   applicableCategories: string[];
+  applicableProducts: string[];
   isActive: boolean;
 }
 
@@ -123,6 +124,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
           validFrom: o.validFrom,
           validTo: o.validTo,
           applicableCategories: o.applicableCategories || [],
+          applicableProducts: o.applicableProducts || [],
           isActive: o.isActive,
         }));
         setOffers(mapped);

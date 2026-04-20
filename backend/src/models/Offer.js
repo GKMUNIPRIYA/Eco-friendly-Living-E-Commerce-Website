@@ -37,6 +37,10 @@ const offerSchema = new mongoose.Schema(
       type: [String],
       default: [],
     },
+    applicableProducts: {
+      type: [String],
+      default: [],
+    },
     isActive: {
       type: Boolean,
       default: true,
