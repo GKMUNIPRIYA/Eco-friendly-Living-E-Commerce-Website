@@ -32,6 +32,7 @@ export const router = createBrowserRouter([
       { index: true, Component: Home },
       { path: 'category/:categoryId', Component: Category },
       { path: 'product/:productId', Component: ProductDetail },
+      { path: 'products/:productId', Component: ProductDetail },
       { path: 'cart', Component: Cart },
       { path: 'checkout', Component: Checkout },
       { path: 'order-confirmation/:orderId', Component: OrderConfirmation },
