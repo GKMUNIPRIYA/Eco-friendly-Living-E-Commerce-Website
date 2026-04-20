@@ -12,7 +12,21 @@ interface Props {
 
 export default function AddOfferForm({ onClose, initialData }: Props) {
   const { addOffer, updateOffer } = useAdmin();
-  const [formData, setFormData] = useState<Offer>(initialData || {
+  // Convert ISO dates to YYYY-MM-DD for the date input
+  const formatDateForInput = (dateString: string) => {
+    if (!dateString) return '';
+    try {
+      return new Date(dateString).toISOString().split('T')[0];
+    } catch {
+      return '';
+    }
+  };
+
+  const [formData, setFormData] = useState<Offer>(initialData ? {
+    ...initialData,
+    validFrom: formatDateForInput(initialData.validFrom),
+    validTo: formatDateForInput(initialData.validTo),
+  } : {
     id: '',
     title: '',
     description: '',
@@ -224,12 +238,6 @@ export default function AddOfferForm({ onClose, initialData }: Props) {
           </div>
         </form>
       </div>
-      {editingOffer && (
-        <AddOfferForm
-          initialData={editingOffer}
-          onClose={() => setEditingOffer(null)}
-        />
-      )}
     </div>
   );
 }
