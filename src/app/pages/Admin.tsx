@@ -171,9 +171,9 @@ export default function Admin() {
       </div>
 
       {/* Navigation Tabs - horizontally scrollable on mobile */}
-      <div className="bg-white border-b sticky top-0 z-10">
+      <div className="bg-white border-b sticky top-0 z-[40] shadow-sm">
         <div className="max-w-7xl mx-auto px-2 md:px-4">
-          <div className="flex overflow-x-auto scrollbar-hide -mb-px">
+          <div className="flex items-center overflow-x-auto scrollbar-hide flex-nowrap min-h-[56px]">
             <button onClick={() => setActiveTab('dashboard')} className={tabClass('dashboard')}>Dashboard</button>
             <button onClick={() => setActiveTab('products')} className={tabClass('products')}>
               <Package className="w-4 h-4" />Products
