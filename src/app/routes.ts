@@ -21,7 +21,6 @@ import VerifyEmail from './pages/VerifyEmail';
 import Admin from './pages/Admin';
 import AdminLogin from './pages/AdminLogin';
 import AdminRoot from './AdminRoot';
-
 import ErrorPage from './pages/ErrorPage';
 
 export const router = createBrowserRouter([
