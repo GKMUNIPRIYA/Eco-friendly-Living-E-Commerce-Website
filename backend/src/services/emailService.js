@@ -275,7 +275,7 @@ export const broadcastNewProduct = async (product) => {
               <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">Category: ${product.category}</p>
             </div>
             <div style="text-align: center; margin-top: 30px;">
-              <a href="${process.env.FRONTEND_URL || 'http://localhost:5173'}/products/${product._id}" 
+              <a href="${process.env.FRONTEND_URL || 'http://localhost:5173'}/product/${product._id}" 
                  style="background-color: #6B8E23; color: white; padding: 12px 25px; text-decoration: none; border-radius: 50px; font-weight: bold; display: inline-block;">
                  View Product
               </a>

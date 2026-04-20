@@ -22,10 +22,13 @@ import Admin from './pages/Admin';
 import AdminLogin from './pages/AdminLogin';
 import AdminRoot from './AdminRoot';
 
+import ErrorPage from './pages/ErrorPage';
+
 export const router = createBrowserRouter([
   ...(import.meta.env.MODE !== 'admin' ? [{
     path: '/',
     Component: Root,
+    errorElement: <ErrorPage />,
     children: [
       { index: true, Component: Home },
       { path: 'category/:categoryId', Component: Category },
@@ -50,6 +53,7 @@ export const router = createBrowserRouter([
   ...(import.meta.env.MODE !== 'user' ? [{
     path: '/admin',
     Component: AdminRoot,
+    errorElement: <ErrorPage />,
     children: [
       { index: true, Component: Admin },
       { path: 'login', Component: AdminLogin },
