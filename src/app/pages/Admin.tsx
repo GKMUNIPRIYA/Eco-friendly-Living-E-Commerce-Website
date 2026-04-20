@@ -153,7 +153,7 @@ export default function Admin() {
           <div className="flex items-center gap-4">
             <div className="hidden md:flex flex-col items-end mr-2">
               <span className="text-sm font-bold">Welcome, Overview</span>
-              <span className="text-[10px] text-green-100 uppercase tracking-widest bg-white/10 px-2 py-0.5 rounded">Super Admin</span>
+              <span className="text-[10px] text-white uppercase tracking-widest bg-white/20 px-2 py-0.5 rounded font-black">Super Admin</span>
             </div>
             <button
               onClick={() => setActiveTab('profile')}
@@ -236,7 +236,7 @@ export default function Admin() {
                   <div className="flex flex-col md:flex-row items-center md:items-start justify-between text-center md:text-left gap-3">
                     <div className="order-2 md:order-1">
                       <div className="flex items-center justify-center md:justify-start gap-2">
-                        <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1">{card.label}</p>
+                        <p className="text-gray-600 text-[10px] font-black uppercase tracking-wider mb-1">{card.label}</p>
                       </div>
                       <p className="text-xl md:text-2xl font-black text-gray-800">{card.value}</p>
                     </div>

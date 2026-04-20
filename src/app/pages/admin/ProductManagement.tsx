@@ -81,11 +81,11 @@ export default function ProductManagement() {
                   className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold transition-all flex items-center justify-between group capitalize ${
                     selectedCategory === catId
                       ? 'bg-[#6B8E23] text-white shadow-md shadow-green-100'
-                      : 'text-gray-500 hover:bg-green-50 hover:text-[#6B8E23]'
+                      : 'text-gray-700 hover:bg-green-50 hover:text-[#6B8E23]'
                   }`}
                 >
                   <span className="truncate">{getCategoryName(catId)}</span>
-                  <span className={`text-[10px] px-1.5 py-0.5 rounded-md ${selectedCategory === catId ? 'bg-white/20' : 'bg-gray-100 text-gray-400'}`}>
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded-md ${selectedCategory === catId ? 'bg-white/20' : 'bg-gray-200 text-gray-500 font-black'}`}>
                     {count}
                   </span>
                 </button>
