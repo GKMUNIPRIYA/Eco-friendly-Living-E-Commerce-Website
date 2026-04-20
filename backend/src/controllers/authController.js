@@ -668,13 +668,13 @@ export const forgotPassword = async (req, res) => {
       });
     }
 
-    const resetToken = generateRandomToken();
-    user.resetPasswordToken = resetToken;
-    user.resetPasswordExpire = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes
+    const otpCode = generateOTP();
+    user.resetPasswordToken = otpCode;
+    user.resetPasswordExpire = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
     await user.save();
 
     try {
-      await sendPasswordResetEmail(user.email, resetToken);
+      await sendPasswordResetEmail(user.email, user.firstName, otpCode);
     } catch (emailError) {
       console.error('Email sending failed:', emailError);
     }
@@ -697,14 +697,14 @@ export const forgotPassword = async (req, res) => {
 // Reset password
 export const resetPassword = async (req, res) => {
   try {
-    const { token, password, confirmPassword } = req.body;
+    const { email, otp, password, confirmPassword } = req.body;
 
-    if (!token || !password || !confirmPassword) {
+    if (!email || !otp || !password || !confirmPassword) {
       return res.status(400).json({
         success: false,
         error: {
           code: 'VALIDATION_ERROR',
-          message: 'Token, password, and confirm password are required',
+          message: 'Email, OTP, password, and confirm password are required',
         },
       });
     }
@@ -720,7 +720,8 @@ export const resetPassword = async (req, res) => {
     }
 
     const user = await User.findOne({
-      resetPasswordToken: token,
+      email: email.toLowerCase(),
+      resetPasswordToken: otp,
       resetPasswordExpire: { $gt: new Date() },
     });
 

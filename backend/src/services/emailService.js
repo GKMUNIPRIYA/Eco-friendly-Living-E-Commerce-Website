@@ -189,23 +189,36 @@ export const sendOrderConfirmationEmail = async (email, orderDetails) => {
   }
 };
 
-// Send password reset email
-export const sendPasswordResetEmail = async (email, resetToken) => {
+// Send password reset email with OTP
+export const sendPasswordResetEmail = async (email, firstName, otpCode) => {
   try {
-    const resetUrl = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/reset-password/${resetToken}`;
-
     const mailOptions = {
       from: process.env.SMTP_EMAIL,
       to: email,
-      subject: 'Password Reset Request',
+      subject: '🔐 Password Reset OTP - Eco-Friendly Living',
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1 style="color: #2d7a4c;">Password Reset Request</h1>
-          <p>We received a request to reset your password.</p>
-          <p><a href="${resetUrl}" style="background-color: #2d7a4c; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">Reset Password</a></p>
-          <p>Or copy this link: <code>${resetUrl}</code></p>
-          <p>This link will expire in 30 minutes.</p>
-          <p>If you didn't request this, please ignore this email.</p>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+          <div style="background-color: #6B8E23; color: white; padding: 30px; text-align: center;">
+            <h1 style="margin: 0; font-size: 24px;">Password Reset Request</h1>
+          </div>
+          <div style="padding: 30px; background-color: white;">
+            <p>Hi ${firstName},</p>
+            <p>We received a request to reset your password for your Eco-Friendly Living account. Please use the following One-Time Password (OTP) to complete the reset:</p>
+            
+            <div style="text-align: center; margin: 30px 0;">
+              <div style="display: inline-block; background-color: #f8faf5; border: 2px dashed #6B8E23; color: #5B6F1E; font-size: 32px; font-weight: bold; letter-spacing: 10px; padding: 20px 40px; border-radius: 10px;">
+                ${otpCode}
+              </div>
+            </div>
+            
+            <p style="color: #666; font-size: 14px; text-align: center;">This code will expire in <strong>10 minutes</strong>.</p>
+            <p style="color: #444; line-height: 1.6; margin-top: 25px;">If you didn't request this, you can safely ignore this email. Your password will remain unchanged.</p>
+          </div>
+          <div style="background-color: #f5f5f5; padding: 20px; text-align: center; border-top: 1px solid #e0e0e0;">
+            <p style="font-size: 12px; color: #888; margin: 0;">
+              © 2026 Eco-Friendly Living. All rights reserved.
+            </p>
+          </div>
         </div>
       `,
     };
