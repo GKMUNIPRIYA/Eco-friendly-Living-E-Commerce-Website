@@ -58,6 +58,7 @@ export interface FeedbackItem {
 interface AdminContextType {
   // Products
   adminProducts: AdminProduct[];
+  totalProducts: number;
   addAdminProduct: (product: AdminProduct) => void;
   updateAdminProduct: (id: string, product: AdminProduct) => void;
   deleteAdminProduct: (id: string) => Promise<void>;
@@ -87,6 +88,7 @@ const AdminContext = createContext<AdminContextType | undefined>(undefined);
 
 export function AdminProvider({ children }: { children: ReactNode }) {
   const [adminProducts, setAdminProducts] = useState<AdminProduct[]>([]);
+  const [totalProducts, setTotalProducts] = useState<number>(0);
   const [offers, setOffers] = useState<Offer[]>([]);
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [feedbackItems, setFeedbackItems] = useState<FeedbackItem[]>([]);
@@ -95,9 +97,10 @@ export function AdminProvider({ children }: { children: ReactNode }) {
   const loadAll = () => {
     // Products
     productsAPI
-      .getAll({ page: 1, limit: 200 })
+      .getAll({ page: 1, limit: 1000 })
       .then((res: any) => {
         const items = res?.data || [];
+        const total = res?.total || items.length;
         const mapped: AdminProduct[] = items.map((p: any) => ({
           id: p._id || p.id,
           name: p.name,
@@ -108,6 +111,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
           description: p.description || '',
         }));
         setAdminProducts(mapped);
+        setTotalProducts(total);
       })
       .catch((err: any) => console.error('Failed to load products', err));
 
@@ -221,6 +225,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
   // ─── Product Management ──────────────────────────────────────────
   const addAdminProduct = (product: AdminProduct) => {
     setAdminProducts((prev) => [product, ...prev]);
+    setTotalProducts((prev) => prev + 1);
   };
 
   const updateAdminProduct = (id: string, product: AdminProduct) => {
@@ -232,6 +237,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
   const deleteAdminProduct = async (id: string) => {
     await productsAPI.delete(id);
     setAdminProducts((prev) => prev.filter((item) => item.id !== id));
+    setTotalProducts((prev) => Math.max(0, prev - 1));
   };
 
   // ─── Offer Management ────────────────────────────────────────────
@@ -287,6 +293,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       value={{
         // Products
         adminProducts,
+        totalProducts,
         addAdminProduct,
         updateAdminProduct,
         deleteAdminProduct,

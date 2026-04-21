@@ -6,7 +6,7 @@ import { categories } from '../../data/products';
 import AddProductForm from './AddProductForm';
 
 export default function ProductManagement() {
-  const { adminProducts, deleteAdminProduct } = useAdmin();
+  const { adminProducts, totalProducts, deleteAdminProduct } = useAdmin();
   const [editingProduct, setEditingProduct] = useState<AdminProduct | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -40,7 +40,7 @@ export default function ProductManagement() {
               <Filter className="w-4 h-4" /> Filter by
             </h3>
             <span className="bg-green-50 text-[#6B8E23] text-[10px] font-bold px-2 py-0.5 rounded-full">
-              {adminProducts.length} Total
+              {totalProducts} Total
             </span>
           </div>
 
@@ -68,7 +68,7 @@ export default function ProductManagement() {
             >
               <span>All Products</span>
               <span className={`text-[10px] px-1.5 py-0.5 rounded-md ${selectedCategory === 'all' ? 'bg-white/20' : 'bg-gray-100 text-gray-400'}`}>
-                {adminProducts.length}
+                {totalProducts}
               </span>
             </button>
             

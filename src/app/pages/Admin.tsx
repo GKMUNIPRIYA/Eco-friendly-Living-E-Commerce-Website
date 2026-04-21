@@ -53,7 +53,7 @@ export default function Admin() {
     navigate('/admin/login');
   };
 
-  const { adminProducts, offers, blogPosts } = useAdmin();
+  const { adminProducts, totalProducts, offers, blogPosts } = useAdmin();
 
   // Load subscriber count
   useEffect(() => {
@@ -219,7 +219,7 @@ export default function Admin() {
           <div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 md:gap-6 mb-12">
               {[
-                { label: 'Total Products', value: adminProducts.length, icon: <Package className="w-8 h-8 text-green-600" />, bgColor: 'bg-green-100/50', badge: null },
+                { label: 'Total Products', value: totalProducts, icon: <Package className="w-8 h-8 text-green-600" />, bgColor: 'bg-green-100/50', badge: null },
                 { label: 'Active Offers', value: offers.filter(o => o.isActive).length, icon: <Tag className="w-8 h-8 text-yellow-600" />, bgColor: 'bg-yellow-100/50', badge: null },
                 { label: 'Published Blogs', value: blogPosts.filter(b => b.isPublished).length, icon: <BookOpen className="w-8 h-8 text-blue-600" />, bgColor: 'bg-blue-100/50', badge: null },
                 { 
