@@ -376,7 +376,7 @@ export default function AuthPage() {
                   </button>
                 </div>
                 <input
-                  placeholder="Enter the characters"
+                  placeholder="Enter the characters (without spaces)"
                   type="text"
                   value={captchaInput}
                   onChange={(e) => setCaptchaInput(e.target.value)}
@@ -384,8 +384,8 @@ export default function AuthPage() {
                 />
                 <FieldError field="captcha" />
               </div>
-              <div className="w-full text-right mb-4">
-                <button type="button" onClick={() => setMode('forgot')} className="text-xs text-gray-500 hover:text-[#6B8E23] hover:underline">Forgot password?</button>
+              <div className="w-full text-center mt-2 mb-4">
+                <button type="button" onClick={() => setMode('forgot')} className="text-sm text-gray-700 hover:text-[#6B8E23] hover:underline font-medium">Forgot your password?</button>
               </div>
               <button type="submit" disabled={loading} className="bg-[#ff4b2b] text-white px-8 py-2 rounded-full font-semibold hover:bg-[#ff3a1a] transition-all active:scale-95 disabled:opacity-50">{loading ? 'Processing...' : 'Sign In'}</button>
               <div className="mt-6 md:hidden text-sm">

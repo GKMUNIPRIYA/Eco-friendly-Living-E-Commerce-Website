@@ -104,8 +104,8 @@ export default function AdminLogin() {
 
       <div className="relative z-10 w-full max-w-md px-4">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-[#6B8E23] rounded-full mb-4 shadow-xl">
-            <Leaf className="w-8 h-8 text-white" />
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-white rounded-full mb-4 shadow-xl overflow-hidden p-1">
+            <img src="/logo.jpg" alt="Logo" className="w-full h-full object-contain rounded-full" />
           </div>
           <h1 className="text-3xl font-bold text-white">TerraKind</h1>
           <p className="text-green-200 mt-1 text-sm">Admin Control Panel</p>
@@ -201,6 +201,16 @@ export default function AdminLogin() {
             >
               {loading ? 'Signing in...' : 'Sign In to Dashboard'}
             </button>
+            
+            <div className="text-center mt-6">
+              <button 
+                type="button" 
+                onClick={() => navigate('/login?mode=forgot')}
+                className="text-sm text-green-200 hover:text-white hover:underline transition"
+              >
+                Forgot your password?
+              </button>
+            </div>
           </form>
         </div>
       </div>

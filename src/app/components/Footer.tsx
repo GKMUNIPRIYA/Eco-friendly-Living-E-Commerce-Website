@@ -8,9 +8,11 @@ export function Footer() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* About */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <Leaf className="w-6 h-6" />
-              <h3 className="text-xl font-bold">TerraKind</h3>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="bg-white p-1 rounded-lg">
+                <img src="/logo.jpg" alt="Logo" className="w-8 h-8 object-contain" />
+              </div>
+              <h3 className="text-xl font-extrabold tracking-tight">TerraKind</h3>
             </div>
             <p className="text-gray-300 text-sm mb-4">
               Caring for Earth, One Choice at a Time. Your trusted partner for sustainable and eco-friendly products.

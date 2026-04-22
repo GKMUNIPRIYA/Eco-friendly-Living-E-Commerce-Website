@@ -675,14 +675,22 @@ export const forgotPassword = async (req, res) => {
 
     try {
       await sendPasswordResetEmail(user.email, user.firstName, otpCode);
+      res.status(200).json({
+        success: true,
+        message: 'Password reset email sent',
+      });
     } catch (emailError) {
       console.error('Email sending failed:', emailError);
+      // We still return 200 if we want to be "secure" but let's provide a helpful hint in dev
+      // or if it's explicitly broken. 
+      return res.status(500).json({
+        success: false,
+        error: {
+          code: 'EMAIL_ERROR',
+          message: 'Account found, but we could not send the reset email. Please try again later or contact support.',
+        },
+      });
     }
-
-    res.status(200).json({
-      success: true,
-      message: 'Password reset email sent',
-    });
   } catch (error) {
     res.status(500).json({
       success: false,

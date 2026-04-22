@@ -141,9 +141,9 @@ export default function Admin() {
       {/* Header */}
       <div className="bg-gradient-to-r from-[#556B2F] via-[#6B8E23] to-[#8FBC5A] text-white py-6 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="bg-white/20 p-2 rounded-xl backdrop-blur-sm">
-              <Package className="w-8 h-8 text-white" />
+           <div className="flex items-center gap-4">
+            <div className="bg-white p-1 rounded-xl shadow-sm">
+              <img src="/logo.jpg" alt="Logo" className="w-10 h-10 object-contain rounded-lg" />
             </div>
             <div>
               <h1 className="text-xl md:text-3xl font-extrabold tracking-tight">TerraKind Admin</h1>
