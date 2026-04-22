@@ -104,7 +104,7 @@ export default function AdminLogin() {
 
       <div className="relative z-10 w-full max-w-md px-4">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-white rounded-full mb-4 shadow-xl overflow-hidden p-1">
+          <div className="inline-flex items-center justify-center w-32 h-32 bg-white rounded-full mb-4 shadow-xl overflow-hidden p-1">
             <img src="/logo.jpg" alt="Logo" className="w-full h-full object-contain rounded-full" />
           </div>
           <h1 className="text-3xl font-bold text-white">TerraKind</h1>

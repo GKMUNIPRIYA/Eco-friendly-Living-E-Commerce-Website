@@ -123,7 +123,7 @@ export function Header() {
               <img
                 src="/logo.jpg"
                 alt="TerraKind Logo"
-                className="h-10 lg:h-12 w-auto object-contain mix-blend-multiply transition-transform duration-300 hover:scale-105"
+                className="h-16 lg:h-24 w-auto object-contain mix-blend-multiply transition-all duration-300 hover:scale-110"
               />
             </Link>
           </div>

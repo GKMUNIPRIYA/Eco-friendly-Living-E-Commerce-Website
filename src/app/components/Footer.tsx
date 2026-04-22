@@ -10,7 +10,7 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <div className="bg-white p-1 rounded-lg">
-                <img src="/logo.jpg" alt="Logo" className="w-8 h-8 object-contain" />
+                <img src="/logo.jpg" alt="Logo" className="w-16 h-16 object-contain" />
               </div>
               <h3 className="text-xl font-extrabold tracking-tight">TerraKind</h3>
             </div>
