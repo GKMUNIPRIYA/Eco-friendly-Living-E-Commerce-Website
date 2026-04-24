@@ -43,8 +43,25 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [cart, setCart] = useState<CartItem[]>([]);
+  const [cart, setCart] = useState<CartItem[]>(() => {
+    try {
+      const savedCart = localStorage.getItem('terrakind_cart');
+      return savedCart ? JSON.parse(savedCart) : [];
+    } catch (error) {
+      console.error('Failed to load cart from localStorage', error);
+      return [];
+    }
+  });
   const [offers, setOffers] = useState<any[]>([]); // ideally typed
+
+  // sync cart to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem('terrakind_cart', JSON.stringify(cart));
+    } catch (error) {
+      console.error('Failed to save cart to localStorage', error);
+    }
+  }, [cart]);
 
   // fetch active offers on mount
   useEffect(() => {
