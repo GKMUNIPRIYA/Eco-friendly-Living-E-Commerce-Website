@@ -66,8 +66,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   // fetch active offers on mount
   useEffect(() => {
     offersAPI.getActive()
-      .then((data) => {
-        if (data.success && Array.isArray(data.data)) {
+      .then((data: any) => {
+        if (data && data.success && Array.isArray(data.data)) {
           setOffers(data.data);
         }
       })
