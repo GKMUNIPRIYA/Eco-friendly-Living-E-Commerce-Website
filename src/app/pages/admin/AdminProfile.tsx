@@ -114,7 +114,17 @@ export default function AdminProfile() {
                       <img 
                         src={(() => {
                           const path = formData.profileImage;
+                          if (!path) return '';
                           if (path.startsWith('http')) return path;
+                          
+                          // WORKAROUND: If the backend is still running the old code and returns the local path 
+                          // which contains the Cloudinary public_id, we can manually construct the Cloudinary URL here.
+                          if (path.startsWith('/uploads/images/terrakind/profiles/')) {
+                            const publicId = path.replace('/uploads/images/', '');
+                            // Using the cloud name from the backend .env
+                            return `https://res.cloudinary.com/dj3nwu8ur/image/upload/${publicId}.jpg`;
+                          }
+
                           const baseUrl = (import.meta as any).env?.VITE_API_URL || 'http://localhost:3000/api';
                           const rootUrl = baseUrl.endsWith('/api') ? baseUrl.slice(0, -4) : baseUrl;
                           return `${rootUrl}${path.startsWith('/') ? '' : '/'}${path}`;
