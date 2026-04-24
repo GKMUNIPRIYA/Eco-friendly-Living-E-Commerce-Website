@@ -327,7 +327,7 @@ export const updateProfileImage = async (req, res) => {
       });
     }
 
-    const imageUrl = `/uploads/images/${req.file.filename}`;
+    const imageUrl = req.file.path;
     const user = await User.findByIdAndUpdate(
       req.userId,
       { profileImage: imageUrl },
