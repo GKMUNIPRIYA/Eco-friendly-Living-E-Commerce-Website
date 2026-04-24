@@ -113,7 +113,7 @@ export default function AdminProfile() {
                     {adminUser?.profileImage || formData.profileImage ? (
                       <img 
                         src={(() => {
-                          const path = adminUser?.profileImage || formData.profileImage;
+                          const path = formData.profileImage;
                           if (path.startsWith('http')) return path;
                           const baseUrl = (import.meta as any).env?.VITE_API_URL || 'http://localhost:3000/api';
                           const rootUrl = baseUrl.endsWith('/api') ? baseUrl.slice(0, -4) : baseUrl;
