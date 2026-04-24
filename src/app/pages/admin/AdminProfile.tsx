@@ -121,12 +121,22 @@ export default function AdminProfile() {
                         })()} 
                         className="w-full h-full object-cover" 
                         alt="Profile" 
+                        onError={(e) => {
+                          // If image fails to load, replace it with the fallback
+                          e.currentTarget.style.display = 'none';
+                          const fallback = e.currentTarget.nextElementSibling;
+                          if (fallback) (fallback as HTMLElement).style.display = 'flex';
+                        }}
                       />
-                    ) : formData.firstName && formData.lastName ? (
-                      `${formData.firstName[0]}${formData.lastName[0]}`.toUpperCase()
-                    ) : (
-                      <UserCircle className="w-20 h-20 text-gray-200" />
-                    )}
+                    ) : null}
+                    {/* Fallback container shown either if no image or if image fails to load */}
+                    <div style={{ display: (adminUser?.profileImage || formData.profileImage) ? 'none' : 'flex' }} className="w-full h-full items-center justify-center">
+                      {formData.firstName && formData.lastName ? (
+                        `${formData.firstName[0]}${formData.lastName[0]}`.toUpperCase()
+                      ) : (
+                        <UserCircle className="w-20 h-20 text-gray-200" />
+                      )}
+                    </div>
                   </div>
                   <input
                     type="file"
@@ -148,7 +158,7 @@ export default function AdminProfile() {
                           const updatedUser = { ...adminUser, profileImage: newImageUrl };
                           localStorage.setItem('adminUser', JSON.stringify(updatedUser));
                           setFormData(prev => ({ ...prev, profileImage: newImageUrl }));
-                          toast.success('Profile photo updated!');
+                          toast.success('Profile photo updated! URL: ' + newImageUrl.substring(0, 30) + '...');
                         } else {
                           toast.error(res.error?.message || 'Upload failed');
                         }
