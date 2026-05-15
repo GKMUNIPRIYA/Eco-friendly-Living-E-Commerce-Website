@@ -6,7 +6,7 @@
  * Base URL: http://localhost:3000/api
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://eco-friendly-living-e-commerce-website-uwgq.onrender.com/api';
 
 // Helper function to get auth token (user/customer)
 function getAuthToken(): string {

@@ -3,6 +3,7 @@ import { ordersAPI } from '../../services/api';
 
 interface Order {
   _id: string;
+  orderNumber?: string;
   status: string;
   products: { name: string; quantity: number; price: number }[];
   customerInfo?: { firstName?: string; lastName?: string; email?: string };
@@ -43,7 +44,7 @@ export default function OrderManagement() {
         <table className="min-w-[800px] w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Order ID</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Order #</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Customer</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Items</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Total</th>
@@ -55,8 +56,8 @@ export default function OrderManagement() {
           <tbody className="divide-y divide-gray-200">
             {orders.map((order) => (
               <tr key={order._id} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-sm font-mono text-gray-800">
-                  {order._id?.slice(-8).toUpperCase()}
+                <td className="px-4 py-3 text-sm font-black text-[#6B8E23]">
+                  {order.orderNumber || order._id?.slice(-8).toUpperCase()}
                 </td>
                 <td className="px-4 py-3 text-sm text-gray-600">
                   {order.customerInfo?.firstName} {order.customerInfo?.lastName}

@@ -104,7 +104,8 @@ orderSchema.pre('save', async function (next) {
   if (this.isNew) {
     const count = await mongoose.model('Order').countDocuments();
     const date = new Date();
-    this.orderNumber = `ORD-${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, '0')}${String(date.getDate()).padStart(2, '0')}-${String(count + 1).padStart(5, '0')}`;
+    const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+    this.orderNumber = `ORD-${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, '0')}${String(date.getDate()).padStart(2, '0')}-${String(count + 1).padStart(5, '0')}-${random}`;
   }
   next();
 });

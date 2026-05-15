@@ -78,9 +78,9 @@ export default function AdminProfile() {
     setLoading(true);
     try {
       // Backend usually expects 'currentPassword' and 'newPassword'
-      await authAPI.updateAdminProfile({ 
-        currentPassword, 
-        newPassword 
+      await authAPI.updateAdminProfile({
+        currentPassword,
+        newPassword
       });
 
       toast.success('Password changed successfully!');
@@ -99,24 +99,23 @@ export default function AdminProfile() {
   return (
     <div className="max-w-5xl mx-auto pb-12">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
+
         {/* Left Column - Profile Card */}
         <div className="lg:col-span-1">
           <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 sticky top-24 pb-8">
             <div className="h-44 bg-gradient-to-tr from-[#556B2F] to-[#8FBC5A]"></div>
-            
+
             <div className="px-6 flex flex-col items-center">
               {/* Photo Section - Using negative margin instead of absolute positioning to keep it in flow */}
               <div className="-mt-16 mb-6">
                 <div className="w-32 h-32 rounded-3xl bg-white p-1.5 shadow-2xl relative group ring-4 ring-white">
                   <div className="w-full h-full rounded-[1.4rem] bg-gray-50 flex items-center justify-center text-4xl font-black text-[#6B8E23] overflow-hidden border-2 border-green-100">
                     {adminUser?.profileImage || formData.profileImage ? (
-                      <img 
+                      <img
                         src={(() => {
                           const path = formData.profileImage;
                           if (!path) return '';
                           if (path.startsWith('http')) return path;
-                          
                           // WORKAROUND: If the backend is still running the old code and returns the local path 
                           // which contains the Cloudinary public_id, we can manually construct the Cloudinary URL here.
                           if (path.startsWith('/uploads/images/terrakind/profiles/')) {
@@ -128,9 +127,9 @@ export default function AdminProfile() {
                           const baseUrl = (import.meta as any).env?.VITE_API_URL || 'http://localhost:3000/api';
                           const rootUrl = baseUrl.endsWith('/api') ? baseUrl.slice(0, -4) : baseUrl;
                           return `${rootUrl}${path.startsWith('/') ? '' : '/'}${path}`;
-                        })()} 
-                        className="w-full h-full object-cover" 
-                        alt="Profile" 
+                        })()}
+                        className="w-full h-full object-cover"
+                        alt="Profile"
                         onError={(e) => {
                           // If image fails to load, replace it with the fallback
                           e.currentTarget.style.display = 'none';
@@ -156,10 +155,10 @@ export default function AdminProfile() {
                     onChange={async (e) => {
                       const file = e.target.files?.[0];
                       if (!file) return;
-                      
+
                       const uploadFormData = new FormData();
                       uploadFormData.append('image', file);
-                      
+
                       setLoading(true);
                       try {
                         const res = await authAPI.updateAdminProfileImage(uploadFormData);
@@ -179,7 +178,7 @@ export default function AdminProfile() {
                       }
                     }}
                   />
-                  <button 
+                  <button
                     type="button"
                     onClick={() => document.getElementById('profile-image-input')?.click()}
                     className="absolute bottom-1 right-1 bg-[#6B8E23] text-white p-2.5 rounded-xl shadow-lg hover:scale-110 transition-transform z-10"
@@ -190,7 +189,7 @@ export default function AdminProfile() {
                   </button>
                 </div>
               </div>
-              
+
               {/* Name and Info Section */}
               <div className="text-center w-full">
                 <h2 className="text-2xl font-black text-gray-900 leading-tight mb-2">{fullName}</h2>
@@ -198,7 +197,7 @@ export default function AdminProfile() {
                   <Mail className="w-3.5 h-3.5" />
                   <span className="text-sm">{formData.email}</span>
                 </div>
-                
+
                 <div className="mt-6 flex flex-wrap justify-center gap-2">
                   <span className="px-4 py-1.5 bg-green-50 text-[#6B8E23] text-[10px] font-black uppercase tracking-widest rounded-full border border-green-100 shadow-sm flex items-center gap-2">
                     <ShieldCheck className="w-3 h-3" /> System Admin
@@ -209,7 +208,7 @@ export default function AdminProfile() {
                 </div>
 
                 <div className="mt-8 pt-8 border-t border-gray-50 flex flex-col gap-3">
-                  <button onClick={() => window.open('/', '_blank')} 
+                  <button onClick={() => window.open('/', '_blank')}
                     className="w-full py-3 px-4 bg-gray-50 hover:bg-gray-100 text-gray-700 rounded-2xl font-bold text-sm transition-all flex items-center justify-center gap-2 border border-gray-100">
                     <LayoutDashboard className="w-4 h-4" /> View Storefront
                   </button>
@@ -225,7 +224,7 @@ export default function AdminProfile() {
 
         {/* Right Column - Forms */}
         <div className="lg:col-span-2 space-y-8">
-          
+
           {/* Main Info Card */}
           <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
             <div className="px-8 py-6 border-b border-gray-50 flex justify-between items-center bg-gray-50/30">
@@ -253,21 +252,20 @@ export default function AdminProfile() {
                 </div>
               )}
             </div>
-            
+
             <div className="p-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-2">
                   <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">First Name</label>
                   <div className="relative group">
                     <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-[#6B8E23] transition-colors" />
-                    <input 
-                      name="firstName" 
-                      value={formData.firstName} 
-                      onChange={handleChange} 
+                    <input
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleChange}
                       disabled={!editing}
-                      className={`w-full pl-11 pr-4 py-3.5 bg-gray-50 border-2 rounded-2xl transition-all font-bold text-gray-900 focus:outline-none focus:bg-white ${
-                        editing ? 'border-gray-100 focus:border-[#6B8E23]' : 'border-transparent'
-                      }`} 
+                      className={`w-full pl-11 pr-4 py-3.5 bg-gray-50 border-2 rounded-2xl transition-all font-bold text-gray-900 focus:outline-none focus:bg-white ${editing ? 'border-gray-100 focus:border-[#6B8E23]' : 'border-transparent'
+                        }`}
                     />
                   </div>
                 </div>
@@ -276,14 +274,13 @@ export default function AdminProfile() {
                   <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Last Name</label>
                   <div className="relative group">
                     <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-[#6B8E23] transition-colors" />
-                    <input 
-                      name="lastName" 
-                      value={formData.lastName} 
-                      onChange={handleChange} 
+                    <input
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleChange}
                       disabled={!editing}
-                      className={`w-full pl-11 pr-4 py-3.5 bg-gray-50 border-2 rounded-2xl transition-all font-bold text-gray-900 focus:outline-none focus:bg-white ${
-                        editing ? 'border-gray-100 focus:border-[#6B8E23]' : 'border-transparent'
-                      }`} 
+                      className={`w-full pl-11 pr-4 py-3.5 bg-gray-50 border-2 rounded-2xl transition-all font-bold text-gray-900 focus:outline-none focus:bg-white ${editing ? 'border-gray-100 focus:border-[#6B8E23]' : 'border-transparent'
+                        }`}
                     />
                   </div>
                 </div>
@@ -292,15 +289,14 @@ export default function AdminProfile() {
                   <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Email Address</label>
                   <div className="relative group">
                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-[#6B8E23] transition-colors" />
-                    <input 
-                      name="email" 
+                    <input
+                      name="email"
                       type="email"
-                      value={formData.email} 
-                      onChange={handleChange} 
+                      value={formData.email}
+                      onChange={handleChange}
                       disabled={!editing}
-                      className={`w-full pl-11 pr-4 py-3.5 bg-gray-50 border-2 rounded-2xl transition-all font-bold text-gray-900 focus:outline-none focus:bg-white ${
-                        editing ? 'border-gray-100 focus:border-[#6B8E23]' : 'border-transparent'
-                      }`} 
+                      className={`w-full pl-11 pr-4 py-3.5 bg-gray-50 border-2 rounded-2xl transition-all font-bold text-gray-900 focus:outline-none focus:bg-white ${editing ? 'border-gray-100 focus:border-[#6B8E23]' : 'border-transparent'
+                        }`}
                     />
                   </div>
                 </div>
@@ -332,12 +328,12 @@ export default function AdminProfile() {
                     <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Current Password</label>
                     <div className="relative group">
                       <Key className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-[#6B8E23] transition-colors" />
-                      <input 
-                        type="password" 
+                      <input
+                        type="password"
                         placeholder="••••••••"
                         value={currentPassword}
                         onChange={(e) => setCurrentPassword(e.target.value)}
-                        className="w-full pl-11 pr-4 py-3.5 bg-gray-50 border-2 border-gray-100 rounded-2xl transition-all font-bold focus:outline-none focus:bg-white focus:border-[#6B8E23]" 
+                        className="w-full pl-11 pr-4 py-3.5 bg-gray-50 border-2 border-gray-100 rounded-2xl transition-all font-bold focus:outline-none focus:bg-white focus:border-[#6B8E23]"
                       />
                     </div>
                   </div>
@@ -345,12 +341,12 @@ export default function AdminProfile() {
                     <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">New Password</label>
                     <div className="relative group">
                       <Key className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-[#6B8E23] transition-colors" />
-                      <input 
-                        type="password" 
+                      <input
+                        type="password"
                         placeholder="Min. 6 chars"
                         value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
-                        className="w-full pl-11 pr-4 py-3.5 bg-gray-50 border-2 border-gray-100 rounded-2xl transition-all font-bold focus:outline-none focus:bg-white focus:border-[#6B8E23]" 
+                        className="w-full pl-11 pr-4 py-3.5 bg-gray-50 border-2 border-gray-100 rounded-2xl transition-all font-bold focus:outline-none focus:bg-white focus:border-[#6B8E23]"
                       />
                     </div>
                   </div>

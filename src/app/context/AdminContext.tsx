@@ -136,7 +136,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       .catch((err: any) => console.error('Failed to load offers', err));
 
     // Blogs — load both published AND all (admin sees everything)
-    const API_BASE = (import.meta as any).env?.VITE_API_URL || 'http://localhost:3000/api';
+    const API_BASE = (import.meta as any).env?.VITE_API_URL || 'https://eco-friendly-living-e-commerce-website-uwgq.onrender.com/api';
     const adminToken = localStorage.getItem('adminToken') || '';
     fetch(`${API_BASE}/blogs/admin/all?page=1&limit=200`, {
       headers: { ...(adminToken && { Authorization: `Bearer ${adminToken}` }) },
